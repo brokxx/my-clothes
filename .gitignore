@@ -1,0 +1,22 @@
+# OS / éditeur
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Node / outils dev (si on en ajoute plus tard)
+node_modules/
+npm-debug.log
+.env
+.env.local
+
+# Playwright / debug artefacts
+.playwright-mcp/
+.wrangler/
+
+# Préférences Claude Code locales (chacun les siennes)
+.claude/settings.local.json
+
+# Tests visuels temporaires
+*.test.png
+screenshots/

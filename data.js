@@ -1,0 +1,335 @@
+// MY CLOTHES — product catalog + placeholder palettes
+// Each product gets a duotone palette so the placeholders look intentional/editorial.
+
+window.PRODUCTS = [
+  // ============ TEES ============
+  { id: 't01', name: 'Atelier Tee',        category: 'tees',     subcategory: 'short-sleeve', rank: 1,  price: 95,  sizes: ['XS','S','M','L','XL'], stock: { XS: 2, S: 8, M: 12, L: 4, XL: 0 }, palette: ['#1a1a1a','#2a2620','#48413a'], glyph: 'TEE', drop: 'SS26', materials: 'Heavyweight 240 gsm jersey · 100% organic cotton', cut: 'Boxy', made: 'Portugal' },
+  { id: 't02', name: 'Static Tee',         category: 'tees',     subcategory: 'short-sleeve', rank: 6,  price: 110, sizes: ['S','M','L','XL'],     stock: { S: 1, M: 6, L: 5, XL: 3 }, palette: ['#9c8b76','#5e503e','#2b2419'], glyph: 'TEE', drop: 'SS26', materials: 'Garment-dyed 220 gsm jersey · 100% Pima cotton', cut: 'Relaxed', made: 'Italy' },
+  { id: 't03', name: 'Long-Sleeve Index',  category: 'tees',     subcategory: 'long-sleeve',  rank: 14, price: 145, sizes: ['XS','S','M','L','XL'], stock: { XS: 3, S: 4, M: 2, L: 3, XL: 1 }, palette: ['#f0eadf','#bdb3a0','#5c544a'], glyph: 'LST', drop: 'SS26', materials: 'Double-knit interlock · combed cotton', cut: 'Standard', made: 'Portugal' },
+
+  // ============ HOODIES ============
+  { id: 'h01', name: 'Cathedral Hoodie',   category: 'hoodies',  subcategory: 'hoodies',   rank: 2,  price: 295, sizes: ['XS','S','M','L','XL'], stock: { XS: 0, S: 2, M: 5, L: 3, XL: 1 }, palette: ['#0e0e10','#1f1d22','#3a3640'], glyph: 'HOOD', drop: 'SS26', materials: 'Brushed 500 gsm fleece · 80% cotton, 20% recycled poly', cut: 'Oversized', made: 'Japan' },
+  { id: 'h02', name: 'Static Hoodie',      category: 'hoodies',  subcategory: 'hoodies',   rank: 8,  price: 320, sizes: ['S','M','L','XL'],     stock: { S: 4, M: 7, L: 6, XL: 2 }, palette: ['#d6cfc0','#9a8f7c','#544b3e'], glyph: 'HOOD', drop: 'SS26', materials: 'Loop-back terry · 480 gsm', cut: 'Boxy', made: 'Portugal' },
+  { id: 'h03', name: 'Zip Crew',           category: 'hoodies',  subcategory: 'crewnecks', rank: 10, price: 245, sizes: ['S','M','L','XL'],     stock: { S: 3, M: 8, L: 4, XL: 0 }, palette: ['#3a3a3a','#535353','#7a7a7a'], glyph: 'ZIP', drop: 'AW25', materials: 'Heavyweight French terry · 460 gsm', cut: 'Standard', made: 'Italy' },
+
+  // ============ OUTERWEAR ============
+  { id: 'o01', name: 'Atelier Mac',        category: 'outerwear',subcategory: 'coats',     rank: 4,  price: 695, sizes: ['S','M','L','XL'],     stock: { S: 1, M: 2, L: 2, XL: 1 }, palette: ['#1c1c1c','#2f2c28','#5a5048'], glyph: 'MAC', drop: 'SS26', materials: 'Bonded cotton-poly twill · sealed seams', cut: 'Relaxed', made: 'Italy' },
+  { id: 'o02', name: 'Index Bomber',       category: 'outerwear',subcategory: 'bombers',   rank: 7,  price: 545, sizes: ['XS','S','M','L','XL'], stock: { XS: 2, S: 4, M: 3, L: 5, XL: 2 }, palette: ['#0b0d12','#1a2030','#2e3a52'], glyph: 'BMR', drop: 'AW25', materials: 'Memory nylon · recycled satin lining', cut: 'Standard', made: 'Japan' },
+  { id: 'o03', name: 'Cocoon Parka',       category: 'outerwear',subcategory: 'coats',     rank: 16, price: 895, sizes: ['M','L','XL'],         stock: { M: 1, L: 1, XL: 0 }, palette: ['#2b2620','#473d33','#7a695a'], glyph: 'PRK', drop: 'AW25', materials: 'Waxed cotton · removable shell', cut: 'Oversized', made: 'Italy' },
+
+  // ============ PANTS ============
+  { id: 'p01', name: 'Field Cargo',        category: 'pants',    subcategory: 'cargo',     rank: 5,  price: 285, sizes: ['28','30','32','34','36'], stock: { '28': 2, '30': 5, '32': 6, '34': 3, '36': 1 }, palette: ['#4a4338','#665a48','#867a64'], glyph: 'CGO', drop: 'SS26', materials: 'Garment-dyed ripstop · 100% cotton', cut: 'Relaxed', made: 'Portugal' },
+  { id: 'p02', name: 'Wide Trouser',       category: 'pants',    subcategory: 'trousers',  rank: 11, price: 245, sizes: ['28','30','32','34','36'], stock: { '28': 1, '30': 4, '32': 8, '34': 4, '36': 2 }, palette: ['#1a1815','#2c2823','#4a4338'], glyph: 'WTR', drop: 'SS26', materials: 'Wool-cotton blend · drape twill', cut: 'Wide', made: 'Italy' },
+  { id: 'p03', name: 'Sweatpant 01',       category: 'pants',    subcategory: 'sweatpants',rank: 9,  price: 215, sizes: ['XS','S','M','L','XL'], stock: { XS: 3, S: 5, M: 6, L: 5, XL: 2 }, palette: ['#dad3c2','#a89e87','#5c5446'], glyph: 'SWP', drop: 'SS26', materials: 'Loop-back terry · 380 gsm', cut: 'Relaxed', made: 'Portugal' },
+
+  // ============ CAPS ============
+  { id: 'c01', name: 'Logo Cap',           category: 'caps',     subcategory: 'caps',      rank: 12, price: 85,  sizes: ['OS'],                 stock: { OS: 12 }, palette: ['#0e0e0e','#1c1c1c','#363636'], glyph: 'CAP', drop: 'SS26', materials: 'Brushed cotton twill · leather strap', cut: '6-panel', made: 'Italy' },
+  { id: 'c02', name: 'Field Bucket',       category: 'caps',     subcategory: 'bucket',    rank: 17, price: 95,  sizes: ['S/M','L/XL'],         stock: { 'S/M': 3, 'L/XL': 4 }, palette: ['#4a4338','#6e6253','#988a76'], glyph: 'BKT', drop: 'SS26', materials: 'Waxed canvas', cut: 'Bucket', made: 'Portugal' },
+
+  // ============ ACCESSORIES ============
+  { id: 'a01', name: 'Atelier Tote',       category: 'access',   subcategory: 'bags',      rank: 13, price: 145, sizes: ['OS'],                 stock: { OS: 8 }, palette: ['#e8e1d2','#b8ad94','#6c6051'], glyph: 'TOT', drop: 'SS26', materials: 'Heavyweight canvas · webbing handles', cut: 'Tote', made: 'Italy' },
+  { id: 'a02', name: 'Mono Belt',          category: 'access',   subcategory: 'belts',     rank: 18, price: 185, sizes: ['80','85','90','95'],  stock: { '80': 2, '85': 3, '90': 4, '95': 2 }, palette: ['#0e0e0e','#1a1a1a','#2a2a2a'], glyph: 'BLT', drop: 'AW25', materials: 'Italian vegetable-tanned leather', cut: '35mm', made: 'Italy' },
+  { id: 'a03', name: 'Curve Pendant',      category: 'access',   subcategory: 'jewelry',   rank: 19, price: 245, sizes: ['OS'],                 stock: { OS: 4 }, palette: ['#cfcfcf','#9a9a9a','#5a5a5a'], glyph: 'PND', drop: 'SS26', materials: 'Sterling silver · brushed finish', cut: 'Pendant', made: 'Japan' },
+
+  // ============ SNEAKERS ============
+  { id: 's01', name: 'Runner 001',         category: 'sneakers', subcategory: 'runners',   rank: 3,  price: 425, sizes: ['40','41','42','43','44','45'], stock: { '40': 1, '41': 2, '42': 3, '43': 4, '44': 2, '45': 1 }, palette: ['#f0eadf','#bdb3a0','#5c544a'], glyph: 'RUN', drop: 'SS26', materials: 'Italian leather upper · EVA midsole', cut: 'Low-top', made: 'Italy' },
+  { id: 's02', name: 'Court 002',          category: 'sneakers', subcategory: 'court',     rank: 15, price: 365, sizes: ['40','41','42','43','44','45'], stock: { '40': 0, '41': 3, '42': 5, '43': 4, '44': 3, '45': 0 }, palette: ['#1a1a1a','#2a2a2a','#4a4a4a'], glyph: 'CRT', drop: 'AW25', materials: 'Suede upper · gum rubber sole', cut: 'Low-top', made: 'Portugal' },
+
+  // ============ MAILLOTS DE FOOT (T-shirts > maillots-foot) ============
+  // 33 maillots issus du listing USFans 2023/24 Season Series
+  { id: 'j01', name: 'Liverpool Home 22/23',           category: 'tees', subcategory: 'maillots-foot', rank: 20, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 4, M: 8, L: 6, XL: 5, XXL: 2 }, palette: ['#c8102e','#8b0000','#ffffff'], glyph: 'LFC', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j01.jpg' },
+  { id: 'j02', name: 'Liverpool Away 23/24',           category: 'tees', subcategory: 'maillots-foot', rank: 21, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 4, XXL: 1 }, palette: ['#7c4afc','#3a1c8a','#ffffff'], glyph: 'LFC', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j02.jpg' },
+  { id: 'j03', name: 'Manchester United Home 23/24',   category: 'tees', subcategory: 'maillots-foot', rank: 22, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 5, M: 8, L: 7, XL: 5, XXL: 2 }, palette: ['#da291c','#7a0a0a','#ffe500'], glyph: 'MUN', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j03.jpg' },
+  { id: 'j04', name: 'Real Madrid Away 23/24',         category: 'tees', subcategory: 'maillots-foot', rank: 23, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 7, L: 6, XL: 4, XXL: 2 }, palette: ['#3e1d6d','#1b0d3a','#ff6b00'], glyph: 'RMA', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j04.jpg' },
+  { id: 'j05', name: 'Real Madrid Special Edition I',  category: 'tees', subcategory: 'maillots-foot', rank: 24, price: 110, sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 4, L: 4, XL: 3, XXL: 1 }, palette: ['#e7d4a4','#bfa57a','#2b1e0e'], glyph: 'RMA', drop: 'SS26', materials: 'Édition limitée — Polyester premium', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j05.jpg' },
+  { id: 'j06', name: 'Real Madrid Special Edition II', category: 'tees', subcategory: 'maillots-foot', rank: 25, price: 110, sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 4, L: 3, XL: 3, XXL: 1 }, palette: ['#0a1f3d','#040d20','#c9a14a'], glyph: 'RMA', drop: 'SS26', materials: 'Édition limitée — Polyester premium', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j06.jpg' },
+  { id: 'j07', name: 'Real Madrid CL Final 23/24',     category: 'tees', subcategory: 'maillots-foot', rank: 26, price: 125, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#ffffff','#dcdcdc','#3e1d6d'], glyph: 'RMA', drop: 'SS26', materials: 'Maillot Finale Wembley — Polyester premium', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j07.jpg' },
+  { id: 'j08', name: 'AC Milan Home 23/24',            category: 'tees', subcategory: 'maillots-foot', rank: 27, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 4, M: 7, L: 6, XL: 4, XXL: 2 }, palette: ['#a4001e','#5a0010','#000000'], glyph: 'ACM', drop: 'SS26', materials: 'Polyester recyclé Puma DryCELL', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j08.jpg' },
+  { id: 'j09', name: 'Tottenham Home 23/24',           category: 'tees', subcategory: 'maillots-foot', rank: 28, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 3, XXL: 1 }, palette: ['#ffffff','#e8e8e8','#001c58'], glyph: 'TOT', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j09.jpg' },
+  { id: 'j10', name: 'Manchester City Away 23/24',     category: 'tees', subcategory: 'maillots-foot', rank: 29, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 7, L: 6, XL: 4, XXL: 2 }, palette: ['#0a0a0a','#2a2a2a','#6cabdd'], glyph: 'MCI', drop: 'SS26', materials: 'Polyester recyclé Puma Ultraweave', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j10.jpg' },
+  { id: 'j11', name: 'Ajax Home 23/24',                category: 'tees', subcategory: 'maillots-foot', rank: 30, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 5, L: 4, XL: 3, XXL: 1 }, palette: ['#ffffff','#e8e8e8','#d2122e'], glyph: 'AJX', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j11.jpg' },
+  { id: 'j12', name: 'AS Roma Home 23/24',             category: 'tees', subcategory: 'maillots-foot', rank: 31, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 4, XXL: 2 }, palette: ['#8b0000','#5a0010','#f4d35e'], glyph: 'ROM', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j12.jpg' },
+  { id: 'j13', name: 'Napoli Away 23/24',              category: 'tees', subcategory: 'maillots-foot', rank: 32, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 5, L: 4, XL: 3, XXL: 1 }, palette: ['#f4f1ea','#bdb3a0','#1ba1e2'], glyph: 'NAP', drop: 'SS26', materials: 'Polyester recyclé EA7', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j13.jpg' },
+  { id: 'j14', name: 'Borussia Dortmund Away 23/24',   category: 'tees', subcategory: 'maillots-foot', rank: 33, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 4, XXL: 2 }, palette: ['#0a0a0a','#1c1c1c','#fde100'], glyph: 'BVB', drop: 'SS26', materials: 'Polyester recyclé Puma DryCELL', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j14.jpg' },
+  { id: 'j15', name: 'Manchester United Away 23/24',   category: 'tees', subcategory: 'maillots-foot', rank: 34, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 4, M: 7, L: 6, XL: 4, XXL: 2 }, palette: ['#f4f1ea','#bdb3a0','#da291c'], glyph: 'MUN', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j15.jpg' },
+  { id: 'j16', name: 'Bayern Munich Third 23/24',      category: 'tees', subcategory: 'maillots-foot', rank: 35, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 5, L: 4, XL: 3, XXL: 1 }, palette: ['#0a4d2a','#062f1a','#ffffff'], glyph: 'FCB', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j16.jpg' },
+  { id: 'j17', name: 'Al-Hilal Away 23/24',            category: 'tees', subcategory: 'maillots-foot', rank: 36, price: 105, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#0a47c2','#062a78','#ffffff'], glyph: 'HIL', drop: 'SS26', materials: 'Polyester recyclé Puma DryCELL', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j17.jpg' },
+  { id: 'j18', name: 'AC Milan Third 23/24',           category: 'tees', subcategory: 'maillots-foot', rank: 37, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 4, L: 4, XL: 3, XXL: 1 }, palette: ['#1a1a1a','#2c2c2c','#a4001e'], glyph: 'ACM', drop: 'SS26', materials: 'Polyester recyclé Puma DryCELL', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j18.jpg' },
+  { id: 'j19', name: 'Al-Hilal Home 23/24',            category: 'tees', subcategory: 'maillots-foot', rank: 38, price: 105, sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 4, L: 3, XL: 3, XXL: 1 }, palette: ['#ffffff','#dcdcdc','#0a47c2'], glyph: 'HIL', drop: 'SS26', materials: 'Polyester recyclé Puma DryCELL', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j19.jpg' },
+  { id: 'j20', name: 'Chelsea Home 23/24',             category: 'tees', subcategory: 'maillots-foot', rank: 39, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 3, XXL: 2 }, palette: ['#034694','#011f4b','#ffffff'], glyph: 'CHE', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j20.jpg' },
+  { id: 'j21', name: 'Inter Milan Away 23/24',         category: 'tees', subcategory: 'maillots-foot', rank: 40, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 4, XXL: 2 }, palette: ['#ffffff','#e8e8e8','#0a4d96'], glyph: 'INT', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j21.jpg' },
+  { id: 'j22', name: 'AS Roma Special Edition 23/24',  category: 'tees', subcategory: 'maillots-foot', rank: 41, price: 110, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#3a0a0a','#1c0505','#ffd700'], glyph: 'ROM', drop: 'SS26', materials: 'Édition limitée — Polyester premium', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j22.jpg' },
+  { id: 'j23', name: 'AS Roma Away 23/24',             category: 'tees', subcategory: 'maillots-foot', rank: 42, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 5, L: 4, XL: 3, XXL: 1 }, palette: ['#ffffff','#e8e8e8','#8b0000'], glyph: 'ROM', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j23.jpg' },
+  { id: 'j24', name: 'Bayer Leverkusen Home 23/24',    category: 'tees', subcategory: 'maillots-foot', rank: 43, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 5, L: 4, XL: 3, XXL: 2 }, palette: ['#1a1a1a','#2c2c2c','#e30613'], glyph: 'B04', drop: 'SS26', materials: 'Polyester recyclé Castore', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j24.jpg' },
+  { id: 'j25', name: 'Flamengo Special Edition 23/24', category: 'tees', subcategory: 'maillots-foot', rank: 44, price: 110, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#0a0a0a','#1c1c1c','#c10018'], glyph: 'FLA', drop: 'SS26', materials: 'Édition limitée Adidas — iridescent', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j25.jpg' },
+  { id: 'j26', name: 'Bayern Munich Oktoberfest 23/24',category: 'tees', subcategory: 'maillots-foot', rank: 45, price: 110, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 2, XL: 2, XXL: 1 }, palette: ['#7c1a1a','#3a0a0a','#f4d35e'], glyph: 'FCB', drop: 'SS26', materials: 'Édition spéciale Oktoberfest', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j26.jpg' },
+  { id: 'j27', name: 'Real Madrid Third 23/24',        category: 'tees', subcategory: 'maillots-foot', rank: 46, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 5, L: 4, XL: 3, XXL: 2 }, palette: ['#f4d35e','#bfa547','#1a1a1a'], glyph: 'RMA', drop: 'SS26', materials: 'Polyester recyclé Adidas AEROREADY', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j27.jpg' },
+  { id: 'j28', name: 'Borussia Dortmund Anniversary',  category: 'tees', subcategory: 'maillots-foot', rank: 47, price: 115, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#fde100','#c9b300','#0a0a0a'], glyph: 'BVB', drop: 'SS26', materials: 'Édition 125e anniversaire — Puma', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j28.jpg' },
+  { id: 'j29', name: 'Manchester City Third 23/24',    category: 'tees', subcategory: 'maillots-foot', rank: 48, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 5, L: 4, XL: 3, XXL: 1 }, palette: ['#3a0a0a','#1c0505','#f0e4c8'], glyph: 'MCI', drop: 'SS26', materials: 'Polyester recyclé Puma Ultraweave', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j29.jpg' },
+  { id: 'j30', name: 'PSG Fourth 23/24',               category: 'tees', subcategory: 'maillots-foot', rank: 49, price: 110, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#1a1a1a','#2c2c2c','#d4af37'], glyph: 'PSG', drop: 'SS26', materials: 'Quatrième maillot — Nike Dri-FIT ADV', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j30.jpg' },
+  { id: 'j31', name: 'PSG Third 23/24',                category: 'tees', subcategory: 'maillots-foot', rank: 50, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 2, M: 4, L: 4, XL: 3, XXL: 2 }, palette: ['#f0eadf','#bdb3a0','#001233'], glyph: 'PSG', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j31.jpg' },
+  { id: 'j32', name: 'Inter Milan Home 23/24',         category: 'tees', subcategory: 'maillots-foot', rank: 51, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 6, L: 5, XL: 4, XXL: 2 }, palette: ['#0a3978','#062250','#1a1a1a'], glyph: 'INT', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j32.jpg' },
+  { id: 'j33', name: 'Olympique Marseille Home 23/24', category: 'tees', subcategory: 'maillots-foot', rank: 52, price: 95,  sizes: ['S','M','L','XL','XXL'], stock: { S: 3, M: 5, L: 4, XL: 3, XXL: 2 }, palette: ['#ffffff','#e8e8e8','#2cb6d8'], glyph: 'OM',  drop: 'SS26', materials: 'Polyester recyclé Puma DryCELL', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j33.jpg' },
+  { id: 'j34', name: 'Al-Nassr Away 23/24',            category: 'tees', subcategory: 'maillots-foot', rank: 53, price: 105, sizes: ['S','M','L','XL','XXL'], stock: { S: 1, M: 3, L: 3, XL: 2, XXL: 1 }, palette: ['#1a1a1a','#2c2c2c','#f4d35e'], glyph: 'NSR', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j34.jpg' },
+
+  // ============ SHORTS (catégorie shorts) ============
+  // 2 modèles multi-couleurs, sélecteur PDP (Modèle B)
+  {
+    id: 'sh01', name: 'Polo Casual Shorts', category: 'shorts', subcategory: 'casual', rank: 60, price: 60,
+    sizes: ['S','M','L','XL','2XL','3XL'], stock: { S: 6, M: 12, L: 14, XL: 10, '2XL': 5, '3XL': 3 },
+    palette: ['#0a0a0a','#1a1a1a','#cc0033'], glyph: 'PRL', drop: 'SS26',
+    materials: 'Coton brossé · finition broderie Polo', cut: 'Regular', made: 'China',
+    image: 'uploads/shorts/sh1/c01.jpg',
+    colors: [
+      { id: 'c02', label: 'Black · Logo blanc',  hex: '#0a0a0a', image: 'uploads/shorts/sh1/c02.png' },
+      { id: 'c03', label: 'Color 03',            hex: '#2c2c2c', image: 'uploads/shorts/sh1/c03.png' },
+      { id: 'c04', label: 'Color 04',            hex: '#3a3a3a', image: 'uploads/shorts/sh1/c04.png' },
+      { id: 'c05', label: 'Color 05',            hex: '#1a3a5e', image: 'uploads/shorts/sh1/c05.png' },
+      { id: 'c06', label: 'Color 06',            hex: '#2a4a6e', image: 'uploads/shorts/sh1/c06.png' },
+      { id: 'c07', label: 'Color 07',            hex: '#4a5a3a', image: 'uploads/shorts/sh1/c07.png' },
+      { id: 'c08', label: 'Color 08',            hex: '#5a4a3a', image: 'uploads/shorts/sh1/c08.png' },
+      { id: 'c09', label: 'Color 09',            hex: '#7a2a2a', image: 'uploads/shorts/sh1/c09.png' },
+      { id: 'c10', label: 'Color 10',            hex: '#8a3a3a', image: 'uploads/shorts/sh1/c10.png' },
+      { id: 'c11', label: 'Color 11',            hex: '#9a5a3a', image: 'uploads/shorts/sh1/c11.png' },
+      { id: 'c12', label: 'Color 12',            hex: '#aa6a4a', image: 'uploads/shorts/sh1/c12.png' },
+      { id: 'c13', label: 'Color 13',            hex: '#cac0a8', image: 'uploads/shorts/sh1/c13.png' },
+      { id: 'c14', label: 'Color 14',            hex: '#d8d0bc', image: 'uploads/shorts/sh1/c14.png' },
+      { id: 'c15', label: 'Color 15',            hex: '#a8a8a8', image: 'uploads/shorts/sh1/c15.png' },
+      { id: 'c16', label: 'Color 16',            hex: '#8a8a8a', image: 'uploads/shorts/sh1/c16.png' },
+      { id: 'c17', label: 'Color 17',            hex: '#6a8a6a', image: 'uploads/shorts/sh1/c17.png' },
+      { id: 'c18', label: 'Color 18',            hex: '#3a5a3a', image: 'uploads/shorts/sh1/c18.png' },
+      { id: 'c19', label: 'Color 19',            hex: '#1a3a1a', image: 'uploads/shorts/sh1/c19.png' },
+      { id: 'c20', label: 'Color 20',            hex: '#5a3a5a', image: 'uploads/shorts/sh1/c20.png' },
+      { id: 'c21', label: 'Color 21',            hex: '#7a4a7a', image: 'uploads/shorts/sh1/c21.png' },
+      { id: 'c22', label: 'Color 22',            hex: '#3a2a1a', image: 'uploads/shorts/sh1/c22.png' },
+    ],
+  },
+  {
+    id: 'sh02', name: 'Lacoste Sport Shorts', category: 'shorts', subcategory: 'sport', rank: 61, price: 85,
+    sizes: ['S','M','L','XL','XXL'], stock: { S: 4, M: 10, L: 12, XL: 8, XXL: 4 },
+    palette: ['#0a3978','#062250','#2cb86a'], glyph: 'LAC', drop: 'SS26',
+    materials: 'Microfibre quick-dry · finition crocodile brodé', cut: 'Regular', made: 'China',
+    image: 'uploads/shorts/sh2/c01.jpg',
+    colors: [
+      { id: 'c02', label: 'Color 02',  hex: '#1a1a1a', image: 'uploads/shorts/sh2/c02.jpg' },
+      { id: 'c03', label: 'Color 03',  hex: '#3a5a3a', image: 'uploads/shorts/sh2/c03.jpg' },
+      { id: 'c04', label: 'Navy Blue', hex: '#0a3978', image: 'uploads/shorts/sh2/c04.jpg' },
+      { id: 'c05', label: 'Color 05',  hex: '#aa3a2a', image: 'uploads/shorts/sh2/c05.jpg' },
+      { id: 'c06', label: 'Color 06',  hex: '#c4d4d8', image: 'uploads/shorts/sh2/c06.jpg' },
+      { id: 'c07', label: 'Color 07',  hex: '#6a7a5a', image: 'uploads/shorts/sh2/c07.jpg' },
+      { id: 'c08', label: 'Color 08',  hex: '#5a4a3a', image: 'uploads/shorts/sh2/c08.jpg' },
+      { id: 'c09', label: 'Color 09',  hex: '#3a3a3a', image: 'uploads/shorts/sh2/c09.jpg' },
+      { id: 'c10', label: 'Color 10',  hex: '#7a5a4a', image: 'uploads/shorts/sh2/c10.jpg' },
+      { id: 'c11', label: 'Color 11',  hex: '#5a8a8a', image: 'uploads/shorts/sh2/c11.jpg' },
+      { id: 'c12', label: 'Color 12',  hex: '#9a4a3a', image: 'uploads/shorts/sh2/c12.jpg' },
+      { id: 'c13', label: 'Color 13',  hex: '#3a3a5a', image: 'uploads/shorts/sh2/c13.jpg' },
+      { id: 'c14', label: 'Color 14',  hex: '#7a3a3a', image: 'uploads/shorts/sh2/c14.jpg' },
+      { id: 'c15', label: 'Color 15',  hex: '#4a4a4a', image: 'uploads/shorts/sh2/c15.jpg' },
+      { id: 'c16', label: 'Color 16',  hex: '#8a8a6a', image: 'uploads/shorts/sh2/c16.jpg' },
+      { id: 'c17', label: 'Color 17',  hex: '#2a5a4a', image: 'uploads/shorts/sh2/c17.jpg' },
+      { id: 'c18', label: 'Color 18',  hex: '#5a3a3a', image: 'uploads/shorts/sh2/c18.jpg' },
+      { id: 'c19', label: 'Color 19',  hex: '#a8a8c8', image: 'uploads/shorts/sh2/c19.jpg' },
+      { id: 'c20', label: 'Color 20',  hex: '#cccccc', image: 'uploads/shorts/sh2/c20.jpg' },
+      { id: 'c21', label: 'Color 21',  hex: '#3a6a5a', image: 'uploads/shorts/sh2/c21.jpg' },
+      { id: 'c22', label: 'Color 22',  hex: '#5a3a2a', image: 'uploads/shorts/sh2/c22.jpg' },
+    ],
+  },
+
+  // ============ SOUS-VÊTEMENTS (catégorie underwear) ============
+  {
+    id: 'uw01', name: 'Boxer Classic 021', category: 'underwear', subcategory: 'boxers', rank: 70, price: 12,
+    sizes: ['S','M','L','XL'], stock: { S: 18, M: 32, L: 28, XL: 14 },
+    palette: ['#0a0a0a','#1a1a1a','#5a5a5a'], glyph: 'BXR', drop: 'SS26',
+    materials: 'Coton modal · ceinture élastique brodée', cut: 'Standard', made: 'China',
+    image: 'uploads/underwear/uw1/c02.jpg',
+    colors: [
+      { id: 'c02', label: 'Blanc',       hex: '#f0f0f0', image: 'uploads/underwear/uw1/c02.jpg' },
+      { id: 'c03', label: 'Gris',        hex: '#5a5a5a', image: 'uploads/underwear/uw1/c03.jpg' },
+      { id: 'c04', label: 'Anthracite',  hex: '#3a3a3a', image: 'uploads/underwear/uw1/c04.jpg' },
+      { id: 'c05', label: 'Bleu marine', hex: '#1a3a5e', image: 'uploads/underwear/uw1/c05.jpg' },
+      { id: 'c06', label: 'Noir mat',    hex: '#0a0a0a', image: 'uploads/underwear/uw1/c06.jpg' },
+      { id: 'c07', label: 'Couleur 07',  hex: '#aaaaaa', image: 'uploads/underwear/uw1/c07.jpg' },
+      { id: 'c08', label: 'Blanc',       hex: '#f0f0f0', image: 'uploads/underwear/uw1/c08.jpg' },
+      { id: 'c09', label: 'Couleur 09',  hex: '#666666', image: 'uploads/underwear/uw1/c09.jpg' },
+      { id: 'c10', label: 'Couleur 10',  hex: '#444444', image: 'uploads/underwear/uw1/c10.jpg' },
+      { id: 'c11', label: 'Couleur 11',  hex: '#222222', image: 'uploads/underwear/uw1/c11.jpg' },
+    ],
+  },
+  {
+    id: 'uw02', name: 'Boxer Premium N04',  category: 'underwear', subcategory: 'boxers', rank: 71, price: 12,
+    sizes: ['L','XL','XXL'], stock: { L: 22, XL: 18, XXL: 10 },
+    palette: ['#1a3a5e','#0a1f3d','#cc0033'], glyph: 'BXP', drop: 'SS26',
+    materials: 'Coton 95% · élasthanne 5%, ceinture élastique large', cut: 'Standard', made: 'China',
+    image: 'uploads/underwear/uw2/c04.jpg',
+    colors: [
+      { id: 'c04', label: 'Bleu marine',    hex: '#1a3a5e', image: 'uploads/underwear/uw2/c04.jpg' },
+      { id: 'c05', label: 'Anthracite',     hex: '#3a3a3a', image: 'uploads/underwear/uw2/c05.jpg' },
+      { id: 'c06', label: 'Bordeaux',       hex: '#7c1a1a', image: 'uploads/underwear/uw2/c06.jpg' },
+      { id: 'c07', label: 'Orange',         hex: '#ff6b00', image: 'uploads/underwear/uw2/c07.jpg' },
+      { id: 'c08', label: 'Gris clair',     hex: '#aaaaaa', image: 'uploads/underwear/uw2/c08.jpg' },
+      { id: 'c09', label: 'Gris foncé',     hex: '#666666', image: 'uploads/underwear/uw2/c09.jpg' },
+      { id: 'c10', label: 'Blanc',          hex: '#cccccc', image: 'uploads/underwear/uw2/c10.jpg' },
+      { id: 'c11', label: 'Marron',         hex: '#4a3a2a', image: 'uploads/underwear/uw2/c11.jpg' },
+      { id: 'c12', label: 'Caramel',        hex: '#8a5a3a', image: 'uploads/underwear/uw2/c12.jpg' },
+      { id: 'c13', label: 'Vert kaki',      hex: '#3a5a3a', image: 'uploads/underwear/uw2/c13.jpg' },
+      { id: 'c14', label: 'Aubergine',      hex: '#5a3a5a', image: 'uploads/underwear/uw2/c14.jpg' },
+      { id: 'c15', label: 'Bleu nuit',      hex: '#2a4a6a', image: 'uploads/underwear/uw2/c15.jpg' },
+    ],
+  },
+
+  // ============ CLAQUETTES (sous-cat de sneakers) ============
+  {
+    id: 'sl01', name: 'Slides Confort 78-53', category: 'sneakers', subcategory: 'claquettes', rank: 72, price: 51,
+    sizes: ['36','37','38','39','40','41','42','43','44','45','46','47'],
+    stock: { '36': 3, '37': 5, '38': 7, '39': 9, '40': 12, '41': 10, '42': 12, '43': 10, '44': 7, '45': 5, '46': 3, '47': 2 },
+    palette: ['#1a1a1a','#3a2a1a','#dcd0b8'], glyph: 'SLD', drop: 'SS26',
+    materials: 'EVA injecté · semelle anatomique · finition tactile', cut: 'Slide', made: 'China',
+    image: 'uploads/shoes/claquettes/c01.jpg',
+    colors: [
+      { id: 'c01', label: 'Onyx',          hex: '#1a1a1a', image: 'uploads/shoes/claquettes/c01.jpg' },
+      { id: 'c02', label: 'Dark Onyx',     hex: '#0a0a0a', image: 'uploads/shoes/claquettes/c02.jpg' },
+      { id: 'c03', label: 'Bone 2022',     hex: '#d8cdb5', image: 'uploads/shoes/claquettes/c03.jpg' },
+      { id: 'c04', label: 'Bone',          hex: '#dcd0b8', image: 'uploads/shoes/claquettes/c04.jpg' },
+      { id: 'c05', label: 'Pure',          hex: '#bcae90', image: 'uploads/shoes/claquettes/c05.jpg' },
+      { id: 'c06', label: 'Salt',          hex: '#e8e0d0', image: 'uploads/shoes/claquettes/c06.jpg' },
+      { id: 'c07', label: 'Flax',          hex: '#a89060', image: 'uploads/shoes/claquettes/c07.jpg' },
+      { id: 'c08', label: 'Ochre',         hex: '#a87038', image: 'uploads/shoes/claquettes/c08.jpg' },
+      { id: 'c09', label: 'Granite',       hex: '#6a6a68', image: 'uploads/shoes/claquettes/c09.jpg' },
+      { id: 'c10', label: 'Slate Grey',    hex: '#787878', image: 'uploads/shoes/claquettes/c10.jpg' },
+      { id: 'c11', label: 'Slate Marine',  hex: '#2a3a52', image: 'uploads/shoes/claquettes/c11.jpg' },
+      { id: 'c12', label: 'Azure',         hex: '#4a8acc', image: 'uploads/shoes/claquettes/c12.jpg' },
+      { id: 'c13', label: 'Glow Green',    hex: '#9ad860', image: 'uploads/shoes/claquettes/c13.jpg' },
+      { id: 'c14', label: 'Enflame Orange',hex: '#d8542a', image: 'uploads/shoes/claquettes/c14.jpg' },
+    ],
+  },
+
+  // ============ Runner K-14 (sous-cat runners) ============
+  {
+    id: 's03', name: 'Runner K-14', category: 'sneakers', subcategory: 'runners', rank: 73, price: 130,
+    sizes: ['36','37','38','39','40','41','42','43','44','45','46'],
+    stock: { '36': 2, '37': 4, '38': 5, '39': 6, '40': 6, '41': 5, '42': 4, '43': 3, '44': 2, '45': 1, '46': 1 },
+    palette: ['#f4f1ea','#bdb3a0','#cc0033'], glyph: 'K14', drop: 'SS26',
+    materials: 'Mesh respirant · semelle Gel-tech · structure Trusstic', cut: 'Low-top', made: 'China',
+    image: 'uploads/shoes/asics-k14/c02.jpg',
+    colors: [
+      { id: 'c02', label: 'Argent',    hex: '#cccccc', image: 'uploads/shoes/asics-k14/c02.jpg' },
+      { id: 'c03', label: 'Orange',    hex: '#cc6633', image: 'uploads/shoes/asics-k14/c03.jpg' },
+      { id: 'c04', label: 'Bleu',      hex: '#3366cc', image: 'uploads/shoes/asics-k14/c04.jpg' },
+      { id: 'c05', label: 'Vert',      hex: '#66cc66', image: 'uploads/shoes/asics-k14/c05.jpg' },
+      { id: 'c06', label: 'Rose',      hex: '#cc3366', image: 'uploads/shoes/asics-k14/c06.jpg' },
+      { id: 'c07', label: 'Blanc',     hex: '#cccccc', image: 'uploads/shoes/asics-k14/c07.jpg' },
+      { id: 'c08', label: 'Gris',      hex: '#666666', image: 'uploads/shoes/asics-k14/c08.jpg' },
+      { id: 'c09', label: 'Camel',     hex: '#996633', image: 'uploads/shoes/asics-k14/c09.jpg' },
+      { id: 'c10', label: 'Navy',      hex: '#333366', image: 'uploads/shoes/asics-k14/c10.jpg' },
+      { id: 'c11', label: 'Olive',     hex: '#669966', image: 'uploads/shoes/asics-k14/c11.jpg' },
+      { id: 'c12', label: 'Or',        hex: '#cc9933', image: 'uploads/shoes/asics-k14/c12.jpg' },
+      { id: 'c13', label: 'Bordeaux',  hex: '#993333', image: 'uploads/shoes/asics-k14/c13.jpg' },
+      { id: 'c14', label: 'Noir',      hex: '#333333', image: 'uploads/shoes/asics-k14/c14.jpg' },
+    ],
+  },
+];
+
+// Top-level nav categories (Nike-style) — each can include sub-categories shown in a mega-menu.
+window.NAV_CATS = [
+  {
+    id: 'sneakers', label: 'Chaussures',
+    subs: [
+      { id: 'all',        label: 'Toutes les chaussures' },
+      { id: 'runners',    label: 'Running' },
+      { id: 'court',      label: 'Court' },
+      { id: 'claquettes', label: 'Claquettes' },
+    ],
+    feature: 's01',
+  },
+  {
+    id: 'hoodies', label: 'Sweats & Hoodies',
+    subs: [
+      { id: 'all',       label: 'Tous les sweats' },
+      { id: 'hoodies',   label: 'Hoodies' },
+      { id: 'crewnecks', label: 'Sweats col rond' },
+    ],
+    feature: 'h01',
+  },
+  {
+    id: 'tees', label: 'T-shirts',
+    subs: [
+      { id: 'all',           label: 'Tous les t-shirts' },
+      { id: 'short-sleeve',  label: 'Manches courtes' },
+      { id: 'long-sleeve',   label: 'Manches longues' },
+      { id: 'maillots-foot', label: 'Maillots de foot' },
+    ],
+    feature: 'j03',
+  },
+  {
+    id: 'pants', label: 'Pantalons',
+    subs: [
+      { id: 'all',        label: 'Tous les pantalons' },
+      { id: 'cargo',      label: 'Cargo' },
+      { id: 'trousers',   label: 'Pantalons' },
+      { id: 'sweatpants', label: 'Joggings' },
+    ],
+    feature: 'p01',
+  },
+  {
+    id: 'shorts', label: 'Shorts',
+    subs: [
+      { id: 'all',    label: 'Tous les shorts' },
+      { id: 'casual', label: 'Casual' },
+      { id: 'sport',  label: 'Sport' },
+    ],
+    feature: 'sh01',
+  },
+  {
+    id: 'underwear', label: 'Sous-vêtements',
+    subs: [
+      { id: 'all',    label: 'Tout' },
+      { id: 'boxers', label: 'Boxers' },
+    ],
+    feature: 'uw01',
+  },
+  {
+    id: 'outerwear', label: 'Vestes & Manteaux',
+    subs: [
+      { id: 'all',     label: 'Toute la collection' },
+      { id: 'coats',   label: 'Manteaux & Macs' },
+      { id: 'bombers', label: 'Bombers' },
+    ],
+    feature: 'o01',
+  },
+  {
+    id: 'access', label: 'Accessoires',
+    multiCat: true, // includes caps + access subcategories
+    subs: [
+      { id: 'all',     label: 'Tous les accessoires' },
+      { id: 'caps',    label: 'Casquettes',     cat: 'caps',   sub: 'caps' },
+      { id: 'bucket',  label: 'Bobs',           cat: 'caps',   sub: 'bucket' },
+      { id: 'bags',    label: 'Sacs',           cat: 'access', sub: 'bags' },
+      { id: 'belts',   label: 'Ceintures',      cat: 'access', sub: 'belts' },
+      { id: 'jewelry', label: 'Bijoux',         cat: 'access', sub: 'jewelry' },
+    ],
+    feature: 'a01',
+  },
+];
+
+window.CATEGORIES = [
+  { id: 'all',       label: 'Tout' },
+  { id: 'tees',      label: 'T-shirts' },
+  { id: 'hoodies',   label: 'Sweats' },
+  { id: 'outerwear', label: 'Vestes' },
+  { id: 'pants',     label: 'Pantalons' },
+  { id: 'shorts',    label: 'Shorts' },
+  { id: 'underwear', label: 'Sous-vêtements' },
+  { id: 'caps',      label: 'Casquettes' },
+  { id: 'access',    label: 'Accessoires' },
+  { id: 'sneakers',  label: 'Chaussures' },
+];
+
+window.CATEGORY_LABEL = window.CATEGORIES.reduce((m, c) => (m[c.id] = c.label.toUpperCase(), m), {});
+
+// Helpers
+window.totalStock = (p) => Object.values(p.stock).reduce((a, b) => a + b, 0);
+window.isLowStock = (p) => window.totalStock(p) <= 6 && window.totalStock(p) > 0;
+window.isSoldOut = (p) => window.totalStock(p) === 0;
+
+// Best sellers — sorted by rank (lower = more popular)
+window.bestSellers = (n = 8) => window.PRODUCTS.slice().sort((a, b) => a.rank - b.rank).slice(0, n);
