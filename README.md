@@ -33,32 +33,74 @@ Pas de hot reload — recharger la page (Ctrl+Shift+R pour vider le cache après
 | `styles.css` | Design system complet |
 | `uploads/` | Images produits téléchargées (jerseys, shorts, shoes, underwear) |
 
-## Workflow Git en équipe
+## Workflow Git en équipe (branches courtes)
+
+**Avant chaque session de code :**
 
 ```bash
-# Récupérer la dernière version
-git pull origin main
-
-# Créer une branche pour ta feature
-git checkout -b feature/ma-modif
-
-# Coder, tester localement, puis :
-git add .
-git commit -m "Ajout de X"
-git push origin feature/ma-modif
-
-# Sur GitHub : ouvrir une Pull Request vers main
-# L'autre review, on merge, puis :
 git checkout main
-git pull origin main
-git branch -d feature/ma-modif  # nettoyage local
+git pull origin main          # toujours partir de la dernière version
+git checkout -b feature/<truc> # nouvelle branche dédiée à UNE tâche
 ```
 
-**Règles :**
-- Ne pas commit direct sur `main` (sauf urgences ou typos triviaux)
-- Toujours `git pull` avant de commencer à coder
+**Pendant la session :**
+
+```bash
+# code, teste localement (http.server 8765 + browser)
+git add .
+git commit -m "Ajout/modif claire"
+# tu peux commit/push plusieurs fois sur ta branche
+git push -u origin feature/<truc>
+```
+
+**Quand la tâche est finie :**
+
+```bash
+gh pr create --web        # ouvre la PR dans le navigateur
+# L'autre review, commente si besoin, puis merge sur GitHub
+# Ensuite, nettoyage local :
+git checkout main
+git pull origin main
+git branch -d feature/<truc>
+```
+
+### Règles importantes
+
+- Une branche = une tâche claire et courte (`add-jerseys-batch5`, `reorg-footer`, pas `feature/big-stuff`)
 - Tester localement avant de pousser
 - Mettre l'UI **en français** uniquement (les noms de marques/clubs restent dans leur langue)
+- Si tu vois que ta branche traîne >3 jours, pull main dedans pour rester à jour : `git checkout feature/X && git pull origin main`
+
+### Répartition des fichiers (qui touche à quoi)
+
+Pour éviter de se marcher dessus :
+
+| Fichier | Toi (catalogue/images) | Lui (réorganisation UI) |
+|---|---|---|
+| `uploads/**` | ✅ oui | ❌ non |
+| `data.js` — `window.PRODUCTS` (fin de fichier) | ✅ oui | ❌ non |
+| `data.js` — `window.NAV_CATS`, `CATEGORIES` (haut de fichier) | ❌ non | ✅ oui |
+| `chrome.jsx`, `screens.jsx`, `cart.jsx`, `app.jsx` | ❌ non | ✅ oui |
+| `styles.css` | ❌ non | ✅ oui |
+| `index.html` | ❌ non | ✅ oui |
+| `README.md` | les deux peuvent | les deux peuvent |
+
+**`data.js` est la seule zone partagée.** Vous touchez des sections différentes du fichier (PRODUCTS en bas, NAV_CATS en haut) — Git auto-merge la plupart du temps. En cas de conflit rare, la personne qui rebase/merge en dernier résout à la main.
+
+### Résoudre un conflit Git
+
+Si `git pull` ou un merge te dit "CONFLICT" :
+
+```bash
+git status                # voir les fichiers en conflit
+# Ouvre le fichier, cherche les marqueurs <<<<<<< / ======= / >>>>>>>
+# Garde les bonnes lignes, supprime les marqueurs
+git add <fichier-résolu>
+git commit                # finir le merge
+git push
+```
+
+Si tu paniques : `git merge --abort` annule, et tu peux demander de l'aide.
 
 ## Ajouter des produits
 
