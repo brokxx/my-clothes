@@ -89,7 +89,12 @@ function ProductMedia({ product, alt = false, showLabel = true }) {
 }
 
 // ---------- Custom cursor ----------
+// Currently unmounted by the App (kept for re-enable). On touch/coarse-pointer
+// devices we no-op entirely to avoid mousemove listeners + RAF on phones.
+const __IS_TOUCH_CURSOR = typeof window !== 'undefined' &&
+  window.matchMedia('(hover: none), (pointer: coarse)').matches;
 function Cursor() {
+  if (__IS_TOUCH_CURSOR) return null;
   const ref = useRef(null);
   const [state, setState] = useState('default');
   const [label, setLabel] = useState('');
