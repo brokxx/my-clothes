@@ -254,7 +254,7 @@ window.PRODUCTS = [
 
   // ============ AMI HEART T-SHIRT — 11 couleurs ============
   {
-    id: 't01', name: 'Ami Heart Tee', category: 'tees', subcategory: 'short-sleeve', rank: 76, price: 25,
+    id: 't04', name: 'Ami Heart Tee', category: 'tees', subcategory: 'short-sleeve', rank: 76, price: 25,
     sizes: ['S','M','L','XL'], stock: { S: 8, M: 14, L: 12, XL: 6 },
     palette: ['#f4f1ea','#cccccc','#c8102e'], glyph: 'AMI', drop: 'SS26',
     materials: 'Coton brodé · logo Ami Heart cousu', cut: 'Regular', made: 'Portugal',
