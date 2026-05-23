@@ -75,6 +75,23 @@ function luminance(hex) {
 }
 
 // =========================================================
+//   TOUCH / COARSE-POINTER DETECTION
+// =========================================================
+// Mobile fluidity gate. We mark <html data-touch="1"> once at boot so the
+// stylesheet can disable heavy effects (backdrop-filter, SVG distortion,
+// crossfade hovers) and components can short-circuit listeners (custom cursor,
+// hero parallax). Re-evaluated on matchMedia change in case the user docks a
+// tablet to a mouse.
+const __mqTouch = window.matchMedia('(hover: none), (pointer: coarse)');
+function __syncTouch() {
+  document.documentElement.dataset.touch = __mqTouch.matches ? '1' : '0';
+  window.IS_TOUCH = __mqTouch.matches;
+}
+__syncTouch();
+if (__mqTouch.addEventListener) __mqTouch.addEventListener('change', __syncTouch);
+else if (__mqTouch.addListener) __mqTouch.addListener(__syncTouch);
+
+// =========================================================
 //   APP ROOT
 // =========================================================
 function App() {
@@ -95,8 +112,8 @@ function App() {
       setScreen(next);
       if (next !== 'product') setProductId(null);
       window.scrollTo({ top: 0, behavior: 'instant' });
-      setTimeout(() => setTransitioning(false), 100);
-    }, 650);
+      setTimeout(() => setTransitioning(false), 60);
+    }, 220);
   }, [screen]);
 
   const openProduct = useCallbackA((id) => {

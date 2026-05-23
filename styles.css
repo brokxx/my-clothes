@@ -272,8 +272,8 @@ body { padding-top: 68px; } /* reserve space for fixed nav */
   transform: translateY(100%);
   pointer-events: none;
 }
-.page-mask.in  { animation: maskIn  650ms var(--ease) forwards; }
-.page-mask.out { animation: maskOut 650ms var(--ease) forwards; }
+.page-mask.in  { animation: maskIn  220ms var(--ease) forwards; }
+.page-mask.out { animation: maskOut 220ms var(--ease) forwards; }
 @keyframes maskIn  { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes maskOut { from { transform: translateY(0); }    to { transform: translateY(-100%); } }
 
@@ -790,3 +790,55 @@ footer .fmeta { font-family: var(--mono); font-size: 10px; letter-spacing: .16em
 [data-theme="light"] .cursor { mix-blend-mode: multiply; background: var(--fg); }
 [data-theme="light"] .hero-meta .countdown b { color: var(--accent); }
 [data-theme="light"] .ph::after { mix-blend-mode: multiply; opacity: 0.3; }
+
+/* ============================================================
+   MOBILE FLUIDITY
+   Strip GPU-expensive effects and hover-only states on
+   touch / coarse-pointer devices. App boot toggles
+   <html data-touch="1"> based on matchMedia.
+   ============================================================ */
+
+/* Universal taps + safe scroll */
+body {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
+}
+a, button, [role="button"], .chip, .size-btn, .filter-btn, .btn {
+  touch-action: manipulation;
+}
+
+/* Touch-mode overrides — kill heavy GPU effects */
+html[data-touch="1"] .nav-wrap {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--bg);
+}
+html[data-touch="1"] .filters {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--bg);
+}
+html[data-touch="1"] .distort-hover:hover,
+html[data-touch="1"] .distort-hover:active { filter: none; }
+html[data-touch="1"] .screen { animation: none; opacity: 1; transform: none; filter: none; }
+/* Crossfade hover is meaningless on tap — don't double-render the SVG silhouette */
+html[data-touch="1"] .rail-card .pmedia .pimg.alt,
+html[data-touch="1"] .product-grid .pmedia .pimg.alt { display: none; }
+/* Hero parallax bg is locked from JS on touch; force it static */
+html[data-touch="1"] .hero-bg { transform: scale(1.06) !important; }
+
+/* Sticky-hover guards: on any no-hover device, neutralise visual-only :hover
+   rules that otherwise stay glued after a tap. We keep :active where it gives
+   useful tactile feedback. */
+@media (hover: none) {
+  .rail-card:hover { transform: none; }
+  .rail-card:hover .pimg { transform: none; }
+  .rail-card:hover .pimg.alt { opacity: 0; }
+  .chip:hover { background: inherit; color: inherit; }
+  .size-btn:hover { background: inherit; }
+  .color-swatch:hover { transform: none; }
+  .btn:hover { transform: none; }
+  .nav-cats button:hover::after { left: 100%; right: 0; }
+  .cat-tile:hover { transform: none; }
+  .cat-tile:hover .cat-img { transform: none; }
+}

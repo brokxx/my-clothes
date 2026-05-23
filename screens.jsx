@@ -28,9 +28,24 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
   const bestSellers = useMemo(() => window.bestSellers(8), []);
   const newIn = useMemo(() => window.PRODUCTS.filter(p => p.drop === 'SS26').slice(0, 6), []);
 
-  const [parallax, setParallax] = useStateS(0);
+  // Hero parallax — desktop only, written via ref + RAF throttle to avoid
+  // re-rendering the whole HomeScreen on every scroll event. On touch devices
+  // the hero stays static (cheaper and no jank).
+  const heroBgRef = React.useRef(null);
   useEffectS(() => {
-    const onScroll = () => setParallax(Math.min(window.scrollY * 0.15, 60));
+    if (window.IS_TOUCH) return;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (heroBgRef.current) {
+          const y = Math.min(window.scrollY * 0.06, 60);
+          heroBgRef.current.style.transform = `translateY(${y}px) scale(1.08)`;
+        }
+        ticking = false;
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -49,7 +64,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
       {/* ---------- HERO ---------- */}
       <section className="hero">
         {/* Background image — replace this with a real lifestyle/product photo later */}
-        <div className="hero-bg" style={{ transform: `translateY(${parallax * 0.4}px) scale(1.08)` }}>
+        <div className="hero-bg" ref={heroBgRef} style={{ transform: 'translateY(0px) scale(1.08)' }}>
           <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o01')} showLabel={false} />
         </div>
 
@@ -215,6 +230,11 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   const [sort, setSort] = useStateS('drop');
   const [priceBand, setPriceBand] = useStateS('all');
   const [panelOpen, setPanelOpen] = useStateS(false);
+  // Incremental rendering: only N first products mounted; click "Voir plus"
+  // to reveal the next batch. Resets to PAGE_SIZE whenever filters change so
+  // mobile never has 70+ ProductCards in the DOM at once.
+  const PAGE_SIZE = 20;
+  const [visibleCount, setVisibleCount] = useStateS(PAGE_SIZE);
 
   // re-resolve when initial props change (nav clicks)
   useEffectS(() => {
@@ -222,6 +242,9 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
     setCat(r.cat);
     setSub(r.sub);
   }, [initialCategory, initialSubcategory]);
+
+  // Reset the visible window when the result set is changed by the user.
+  useEffectS(() => { setVisibleCount(PAGE_SIZE); }, [cat, sub, sort, priceBand]);
 
   const availableSubs = useMemo(() => {
     if (cat === 'all') return [];
@@ -357,9 +380,18 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
             <button className="btn btn-ghost" style={{ marginTop: 24 }} onClick={resetFilters}>Réinitialiser les filtres</button>
           </div>
         ) : (
-          <div className="product-grid">
-            {filtered.map(p => <ProductCard key={p.id} product={p} onClick={() => openProduct(p.id)} />)}
-          </div>
+          <>
+            <div className="product-grid">
+              {filtered.slice(0, visibleCount).map(p => <ProductCard key={p.id} product={p} onClick={() => openProduct(p.id)} />)}
+            </div>
+            {visibleCount < filtered.length && (
+              <div style={{ textAlign: 'center', marginTop: 48 }}>
+                <button className="btn btn-ghost" onClick={() => setVisibleCount(v => v + PAGE_SIZE)}>
+                  Voir plus ({filtered.length - visibleCount} restant{filtered.length - visibleCount > 1 ? 's' : ''})
+                </button>
+              </div>
+            )}
+          </>
         )}
       </section>
     </div>
