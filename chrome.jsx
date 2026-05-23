@@ -291,9 +291,6 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
             {window.NAV_CATS.map(c => (
               <button
                 key={c.id}
-                data-open={openCat === c.id}
-                onMouseEnter={() => onEnter(c.id)}
-                onFocus={() => onEnter(c.id)}
                 onClick={() => go(c.id, 'all')}
               >
                 {c.label}
@@ -313,56 +310,6 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
         </nav>
 
         {/* Mega-menu */}
-        {active && (
-          <div className="megamenu" onMouseEnter={() => onEnter(active.id)} onMouseLeave={onLeave}>
-            <div>
-              <h5>{active.label}</h5>
-              <ul>
-                {active.subs.map(s => (
-                  <li key={s.id}>
-                    <button onClick={() => go(active.id, s.id)}>{s.label}</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h5>À la une</h5>
-              <ul>
-                <li><button onClick={() => go(active.id, 'all')}>Nouveautés SS26</button></li>
-                <li><button onClick={() => go(active.id, 'all')}>Meilleures ventes</button></li>
-                <li><button onClick={() => go(active.id, 'all')}>Dernières pièces</button></li>
-              </ul>
-            </div>
-
-            <div>
-              <h5>Par drop</h5>
-              <ul>
-                <li><button onClick={() => go(active.id, 'all')}>Drop 003 · SS26</button></li>
-                <li><button onClick={() => go(active.id, 'all')}>Drop 002 · AW25</button></li>
-                <li><button onClick={() => go(active.id, 'all')}>Archives</button></li>
-              </ul>
-            </div>
-
-            <button
-              className="megamenu-feature"
-              onClick={() => {
-                setOpenCat(null);
-                const p = window.PRODUCTS.find(p => p.id === active.feature);
-                if (p) window.__openProductFromNav?.(p.id);
-              }}
-            >
-              {(() => {
-                const p = window.PRODUCTS.find(p => p.id === active.feature);
-                return p ? <ProductMedia product={p} showLabel={false} /> : null;
-              })()}
-              <div className="label">
-                <span className="ftitle">{(window.PRODUCTS.find(p => p.id === active.feature) || {}).name}</span>
-                <span>découvrir ↗</span>
-              </div>
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Mobile drawer */}
