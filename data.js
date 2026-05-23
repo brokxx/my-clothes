@@ -238,7 +238,6 @@ window.PRODUCTS = [
     colors: [
       { id: 'vert',   label: 'Vert',    hex: '#1a8a3a', image: 'uploads/stone-island/vert.jpg' },
       { id: 'noir',   label: 'Noir',    hex: '#1a1a1a', image: 'uploads/stone-island/noir.jpg' },
-      { id: 'beige',  label: 'Beige',   hex: '#c8b896', image: 'uploads/stone-island/beige.jpg' },
       { id: 'marron', label: 'Marron',  hex: '#6a4030', image: 'uploads/stone-island/marron.jpg' },
     ],
   },
