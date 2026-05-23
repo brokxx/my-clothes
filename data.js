@@ -227,6 +227,33 @@ window.PRODUCTS = [
     ],
   },
 
+  // ============ Boston Clog (sous-cat claquettes) — 14 colorways ============
+  {
+    id: 'sl02', name: 'Boston Clog', category: 'sneakers', subcategory: 'claquettes', rank: 80, price: 75,
+    sizes: ['36','37','38','39','40','41','42','43','44','45','46'],
+    stock: { '36': 2, '37': 4, '38': 6, '39': 8, '40': 10, '41': 9, '42': 10, '43': 8, '44': 6, '45': 3, '46': 2 },
+    palette: ['#1a1a1a','#2a2a2a','#c0a060'], glyph: 'BST', drop: 'SS26',
+    materials: 'Cuir suède · semelle liège · sangle réglable bouclée',
+    cut: 'Slip-on closed-toe', made: 'China',
+    image: 'uploads/shoes/birkenstock-style/c01.png',
+    colors: [
+      { id: 'c01', label: 'Noir suède',        hex: '#1a1a1a', image: 'uploads/shoes/birkenstock-style/c01.png' },
+      { id: 'c02', label: 'Noir cuir',         hex: '#0a0a0a', image: 'uploads/shoes/birkenstock-style/c02.png' },
+      { id: 'c03', label: 'Mocha',             hex: '#5a3a28', image: 'uploads/shoes/birkenstock-style/c03.png' },
+      { id: 'c04', label: 'Taupe',             hex: '#a89788', image: 'uploads/shoes/birkenstock-style/c04.png' },
+      { id: 'c05', label: 'Latte Cream',       hex: '#c8b89c', image: 'uploads/shoes/birkenstock-style/c05.png' },
+      { id: 'c06', label: 'Faded Khaki',       hex: '#9a9070', image: 'uploads/shoes/birkenstock-style/c06.png' },
+      { id: 'c07', label: 'Tobacco Brown',     hex: '#6a4028', image: 'uploads/shoes/birkenstock-style/c07.png' },
+      { id: 'c08', label: 'Habana',            hex: '#4a2c1a', image: 'uploads/shoes/birkenstock-style/c08.png' },
+      { id: 'c09', label: 'Tobacco',           hex: '#7a4a30', image: 'uploads/shoes/birkenstock-style/c09.png' },
+      { id: 'c10', label: 'Concrete Gray',     hex: '#787878', image: 'uploads/shoes/birkenstock-style/c10.png' },
+      { id: 'c11', label: 'Iron',              hex: '#5a5a5a', image: 'uploads/shoes/birkenstock-style/c11.png' },
+      { id: 'c12', label: 'Stone Coin',        hex: '#b8a890', image: 'uploads/shoes/birkenstock-style/c12.png' },
+      { id: 'c13', label: 'Shearling Mocha',   hex: '#6a4030', image: 'uploads/shoes/birkenstock-style/c13.png' },
+      { id: 'c14', label: 'Antique White',     hex: '#e8dccc', image: 'uploads/shoes/birkenstock-style/c14.png' },
+    ],
+  },
+
   // ============ Runner K-14 (sous-cat runners) ============
   {
     id: 's03', name: 'Runner K-14', category: 'sneakers', subcategory: 'runners', rank: 73, price: 130,
