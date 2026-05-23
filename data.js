@@ -103,7 +103,7 @@ window.PRODUCTS = [
     sizes: ['S','M','L','XL','2XL','3XL'], stock: { S: 6, M: 12, L: 14, XL: 10, '2XL': 5, '3XL': 3 },
     palette: ['#0a0a0a','#1a1a1a','#cc0033'], glyph: 'PRL', drop: 'SS26',
     materials: 'Coton brossé · finition broderie Polo', cut: 'Regular', made: 'China',
-    image: 'uploads/shorts/sh1/c01.jpg',
+    image: 'uploads/shorts/sh1/c02.png',
     colors: [
       { id: 'c02', label: 'Black · Logo blanc',  hex: '#0a0a0a', image: 'uploads/shorts/sh1/c02.png' },
       { id: 'c03', label: 'Color 03',            hex: '#2c2c2c', image: 'uploads/shorts/sh1/c03.png' },
