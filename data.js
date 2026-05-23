@@ -227,6 +227,39 @@ window.PRODUCTS = [
     ],
   },
 
+  // ============ Pull Stone Island Compass — sweat col rond ============
+  {
+    id: 'h05', name: 'Pull Stone Island Compass', category: 'hoodies', subcategory: 'crewnecks', rank: 77, price: 80,
+    sizes: ['S','M','L','XL','XXL'], stock: { S: 4, M: 10, L: 12, XL: 8, XXL: 3 },
+    palette: ['#0a4d2a','#1a1a1a','#6a4030'], glyph: 'SI', drop: 'SS26',
+    materials: 'Coton brossé · patch Compass à la manche',
+    cut: 'Regular', made: 'Italy',
+    image: 'uploads/stone-island/vert.jpg',
+    colors: [
+      { id: 'vert',   label: 'Vert',    hex: '#1a8a3a', image: 'uploads/stone-island/vert.jpg' },
+      { id: 'noir',   label: 'Noir',    hex: '#1a1a1a', image: 'uploads/stone-island/noir.jpg' },
+      { id: 'beige',  label: 'Beige',   hex: '#c8b896', image: 'uploads/stone-island/beige.jpg' },
+      { id: 'marron', label: 'Marron',  hex: '#6a4030', image: 'uploads/stone-island/marron.jpg' },
+    ],
+  },
+
+  // ============ Pull Ami De Coeur — sweat col rond ============
+  {
+    id: 'h04', name: 'Pull Ami De Coeur', category: 'hoodies', subcategory: 'crewnecks', rank: 78, price: 75,
+    sizes: ['XS','S','M','L','XL','XXL'], stock: { XS: 3, S: 8, M: 14, L: 12, XL: 8, XXL: 4 },
+    palette: ['#0a0a0a','#1a1a1a','#cc0033'], glyph: 'AMI', drop: 'SS26',
+    materials: 'Coton bio brossé · broderie cœur Ami',
+    cut: 'Regular', made: 'Portugal',
+    image: 'uploads/ami-sweat/c01.jpg',
+    colors: [
+      { id: 'c01', label: 'Noir',          hex: '#0a0a0a', image: 'uploads/ami-sweat/c01.jpg' },
+      { id: 'c02', label: 'Blanc',         hex: '#f5f5f0', image: 'uploads/ami-sweat/c02.jpg' },
+      { id: 'c03', label: 'Gris chiné',    hex: '#9a9a9a', image: 'uploads/ami-sweat/c03.jpg' },
+      { id: 'c04', label: 'Beige',         hex: '#c8b896', image: 'uploads/ami-sweat/c04.jpg' },
+      { id: 'c05', label: 'Aqua',          hex: '#7ec8c8', image: 'uploads/ami-sweat/c05.jpg' },
+    ],
+  },
+
   // ============ Boston Clog (sous-cat claquettes) — 14 colorways ============
   {
     id: 'sl02', name: 'Boston Clog', category: 'sneakers', subcategory: 'claquettes', rank: 80, price: 75,
