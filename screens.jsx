@@ -17,6 +17,101 @@ function useCountdown(target) {
   return { d, h, m, s, done: diff === 0 };
 }
 
+// ---------- Trending rail with arrow controls (GPU transform-based) ----------
+function TrendingRail({ trendingList, openProduct }) {
+  const wrapRef = useRefS(null);
+  const trackRef = useRefS(null);
+  const offsetRef = useRefS(0);
+  const animRef = useRefS(null);
+  const [hasInteracted, setHasInteracted] = useStateS(false);
+  const [canNext, setCanNext] = useStateS(true);
+  const [atStart, setAtStart] = useStateS(true);
+
+  const getMaxOffset = () => {
+    const wrap = wrapRef.current, track = trackRef.current;
+    if (!wrap || !track) return 0;
+    return Math.max(0, track.scrollWidth - wrap.clientWidth);
+  };
+
+  const applyOffset = (x) => {
+    offsetRef.current = x;
+    if (trackRef.current) trackRef.current.style.transform = `translate3d(${-x}px, 0, 0)`;
+    setAtStart(x <= 1);
+    setCanNext(x < getMaxOffset() - 1);
+  };
+
+  useEffectS(() => {
+    applyOffset(0);
+    const onResize = () => applyOffset(Math.min(offsetRef.current, getMaxOffset()));
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const tween = (target, duration = 1100) => {
+    if (animRef.current) cancelAnimationFrame(animRef.current);
+    const start = offsetRef.current;
+    const change = target - start;
+    if (Math.abs(change) < 0.5) return;
+    const startTs = performance.now();
+    // ease-out expo — strong start, very gentle finish; feels like a glide
+    const easeOutExpo = (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    const step = (ts) => {
+      const t = Math.min(1, (ts - startTs) / duration);
+      applyOffset(start + change * easeOutExpo(t));
+      if (t < 1) animRef.current = requestAnimationFrame(step);
+    };
+    animRef.current = requestAnimationFrame(step);
+  };
+
+  const scrollByCards = (dir) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector('.rail-card');
+    const cardW = card ? card.getBoundingClientRect().width + 18 : 280;
+    const target = Math.max(0, Math.min(getMaxOffset(), offsetRef.current + dir * cardW * 2));
+    tween(target);
+    if (dir > 0) setHasInteracted(true);
+  };
+
+  const canPrev = hasInteracted && !atStart;
+
+  return (
+    <section className="rail-section">
+      <div className="rail-head">
+        <div>
+          <span className="eyebrow">Les plus commandés cette semaine</span>
+          <h2>Tendances<em style={{ color: 'var(--accent)' }}>.</em></h2>
+        </div>
+      </div>
+      <div className="rail-wrap" ref={wrapRef}>
+        <div className="rail rail--track" ref={trackRef} aria-label="Articles les plus vendus">
+          {trendingList.map((p) => (
+            <button key={p.id} className="rail-card" onClick={() => openProduct(p.id)}>
+              <div className="pmedia">
+                <div className="pimg"><ProductMedia product={p} /></div>
+                {window.isLowStock(p) && <div className="lowstock">Plus que {window.totalStock(p)}</div>}
+              </div>
+              <div className="pinfo">
+                <div>
+                  <div className="ptitle">{p.name}</div>
+                  <div className="pmeta">{window.CATEGORY_LABEL[p.category]} · {p.drop}</div>
+                </div>
+                <div className="pprice">€{p.price}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+        {canPrev && (
+          <button type="button" className="rail-nav rail-nav--prev" aria-label="Précédent" onClick={() => scrollByCards(-1)}>←</button>
+        )}
+        {canNext && (
+          <button type="button" className="rail-nav rail-nav--next" aria-label="Suivant" onClick={() => scrollByCards(1)}>→</button>
+        )}
+      </div>
+    </section>
+  );
+}
+
 // ============================================================
 //   HOME
 // ============================================================
@@ -50,14 +145,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const [trendingTab, setTrendingTab] = useStateS('all');
-  const trendingList = useMemo(() => {
-    let arr = bestSellers;
-    if (trendingTab === 'sneakers') arr = window.PRODUCTS.filter(p => p.category === 'sneakers').sort((a, b) => a.rank - b.rank);
-    if (trendingTab === 'hoodies')  arr = window.PRODUCTS.filter(p => p.category === 'hoodies').sort((a, b) => a.rank - b.rank);
-    if (trendingTab === 'tees')     arr = window.PRODUCTS.filter(p => p.category === 'tees').sort((a, b) => a.rank - b.rank);
-    return arr.slice(0, 8);
-  }, [trendingTab, bestSellers]);
+  const trendingList = bestSellers;
 
   return (
     <div className="screen">
@@ -111,44 +199,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
       </section>
 
       {/* ---------- TENDANCES / BEST SELLERS ---------- */}
-      <section className="rail-section">
-        <div className="rail-head">
-          <div>
-            <span className="eyebrow">Les plus commandés cette semaine</span>
-            <h2>Tendances<em style={{ color: 'var(--accent)' }}>.</em></h2>
-          </div>
-          <div className="rail-tabs">
-            {[
-              { id: 'all',      label: 'Tout' },
-              { id: 'sneakers', label: 'Chaussures' },
-              { id: 'hoodies',  label: 'Sweats' },
-              { id: 'tees',     label: 'T-shirts' },
-            ].map(t => (
-              <button key={t.id} className="chip" aria-pressed={trendingTab === t.id} onClick={() => setTrendingTab(t.id)}>
-                {t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="rail">
-          {trendingList.map((p, i) => (
-            <button key={p.id} className="rail-card" onClick={() => openProduct(p.id)}>
-              <div className="pmedia">
-                <div className="pimg"><ProductMedia product={p} /></div>
-                <div className="rank">N°{String(i + 1).padStart(2, '0')}</div>
-                {window.isLowStock(p) && <div className="lowstock">Plus que {window.totalStock(p)}</div>}
-              </div>
-              <div className="pinfo">
-                <div>
-                  <div className="ptitle">{p.name}</div>
-                  <div className="pmeta">{window.CATEGORY_LABEL[p.category]} · {p.drop}</div>
-                </div>
-                <div className="pprice">€{p.price}</div>
-              </div>
-            </button>
-          ))}
-        </div>
-      </section>
+      <TrendingRail trendingList={trendingList} openProduct={openProduct} />
 
       {/* ---------- EDITORIAL BLOCK ---------- */}
       <section className="edit-block">
@@ -230,6 +281,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   const [sort, setSort] = useStateS('drop');
   const [priceBand, setPriceBand] = useStateS('all');
   const [panelOpen, setPanelOpen] = useStateS(false);
+  const [query, setQuery] = useStateS('');
   // Incremental rendering: only N first products mounted; click "Voir plus"
   // to reveal the next batch. Resets to PAGE_SIZE whenever filters change so
   // mobile never has 70+ ProductCards in the DOM at once.
@@ -244,7 +296,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   }, [initialCategory, initialSubcategory]);
 
   // Reset the visible window when the result set is changed by the user.
-  useEffectS(() => { setVisibleCount(PAGE_SIZE); }, [cat, sub, sort, priceBand]);
+  useEffectS(() => { setVisibleCount(PAGE_SIZE); }, [cat, sub, sort, priceBand, query]);
 
   const availableSubs = useMemo(() => {
     if (cat === 'all') return [];
@@ -279,11 +331,21 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
         return true;
       });
     }
+    const q = query.trim().toLowerCase();
+    if (q) {
+      arr = arr.filter(p => {
+        const catLabel = (window.CATEGORY_LABEL[p.category] || '').toLowerCase();
+        return p.name.toLowerCase().includes(q)
+          || (p.subcategory || '').toLowerCase().includes(q)
+          || catLabel.includes(q)
+          || (p.drop || '').toLowerCase().includes(q);
+      });
+    }
     if (sort === 'price-asc') arr.sort((a, b) => a.price - b.price);
     else if (sort === 'price-desc') arr.sort((a, b) => b.price - a.price);
     else if (sort === 'popular') arr.sort((a, b) => a.rank - b.rank);
     return arr;
-  }, [cat, sub, sort, priceBand]);
+  }, [cat, sub, sort, priceBand, query]);
 
   const catLabel = useMemo(() => {
     if (cat === 'all') return 'Catalogue';
@@ -302,7 +364,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
     'price-desc': 'Prix ↓',
   }[sort];
 
-  const resetFilters = () => { setSub('all'); setPriceBand('all'); setSort('drop'); };
+  const resetFilters = () => { setSub('all'); setPriceBand('all'); setSort('drop'); setQuery(''); };
 
   return (
     <div className="screen">
@@ -326,7 +388,22 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
           {activeFilters > 0 && <span className="badge">{activeFilters}</span>}
           <span style={{ fontSize: 9 }}>{panelOpen ? '▲' : '▼'}</span>
         </button>
-        {activeFilters > 0 && (
+        <label className="filter-search">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Rechercher dans cette sélection…"
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {query && <button type="button" className="filter-search-clear" onClick={() => setQuery('')} aria-label="Effacer la recherche">✕</button>}
+        </label>
+        {(activeFilters > 0 || query) && (
           <button className="chip" onClick={resetFilters} style={{ marginLeft: 4 }}>
             Réinitialiser ×
           </button>
@@ -525,4 +602,47 @@ function ProductScreen({ productId, openProduct, addToCart }) {
   );
 }
 
-Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard });
+// ============================================================
+//   CONTACT
+// ============================================================
+const CONTACT = {
+  discordUrl: 'https://discord.gg/REPLACE-ME',
+};
+
+function ContactScreen() {
+  return (
+    <div className="screen contact-screen">
+      <section className="contact-hero">
+        <div className="eyebrow">Atelier 003 — Service client</div>
+        <h1 className="serif">
+          Restons <em>en contact.</em>
+        </h1>
+        <p className="contact-lede">
+          Une question sur une pièce, une commande, ou simplement envie d'échanger&nbsp;? Rejoignez-nous sur Discord — c'est là que ça se passe.
+        </p>
+      </section>
+
+      <section className="contact-grid contact-grid--single">
+        <a className="contact-card" href={CONTACT.discordUrl} target="_blank" rel="noreferrer noopener">
+          <div className="contact-card-eyebrow">Communauté</div>
+          <h2>Discord</h2>
+          <p>Rejoignez le serveur pour discuter avec l'atelier et les autres porteurs. Support, drops, et coulisses. Réponse en quelques heures.</p>
+          <span className="contact-card-cta">Rejoindre le Discord <span aria-hidden="true">→</span></span>
+        </a>
+      </section>
+
+      <section className="contact-foot">
+        <div>
+          <div className="eyebrow">Atelier</div>
+          <p>Paris · Tokyo · Porto</p>
+        </div>
+        <div>
+          <div className="eyebrow">Horaires</div>
+          <p>Lun–Ven · 10h–18h CET</p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen });

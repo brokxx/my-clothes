@@ -242,6 +242,7 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
   const [openCat, setOpenCat] = useState(null); // id of the open mega-menu
   const [mobileOpen, setMobileOpen] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef(null);
 
   // Show/hide header on scroll direction
@@ -301,6 +302,9 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
                 {c.label}
               </button>
             ))}
+            <button className="nav-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Rechercher un article" title="Rechercher">
+              <SearchIcon />
+            </button>
           </div>
 
           <div className="nav-right">
@@ -325,6 +329,9 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
             <button onClick={() => setMobileOpen(false)}>Fermer ✕</button>
           </div>
           <div className="mnav-body">
+            <button className="mnav-search-btn" onClick={() => { setMobileOpen(false); setSearchOpen(true); }}>
+              <SearchIcon /> <span>Rechercher</span>
+            </button>
             {window.NAV_CATS.map(c => (
               <div className="mnav-cat" key={c.id}>
                 <button onClick={() => go(c.id, 'all')}>
@@ -341,7 +348,107 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
           </div>
         </div>
       )}
+
+      {searchOpen && <SearchOverlay onClose={() => setSearchOpen(false)} />}
     </React.Fragment>
+  );
+}
+
+// ---------- Search icon (inline SVG) ----------
+function SearchIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-3.5-3.5" />
+    </svg>
+  );
+}
+
+// ---------- Site-wide search overlay ----------
+function SearchOverlay({ onClose }) {
+  const [query, setQuery] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus();
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  const q = query.trim().toLowerCase();
+  const results = q.length === 0 ? [] : window.PRODUCTS.filter(p => {
+    const catLabel = (window.CATEGORY_LABEL[p.category] || '').toLowerCase();
+    return p.name.toLowerCase().includes(q)
+      || p.category.toLowerCase().includes(q)
+      || (p.subcategory || '').toLowerCase().includes(q)
+      || catLabel.includes(q)
+      || (p.drop || '').toLowerCase().includes(q)
+      || (p.glyph || '').toLowerCase().includes(q);
+  }).slice(0, 24);
+
+  const pickProduct = (id) => {
+    onClose();
+    if (window.__openProductFromNav) window.__openProductFromNav(id);
+  };
+
+  return (
+    <div className="search-overlay" role="dialog" aria-modal="true" aria-label="Recherche">
+      <div className="search-backdrop" onClick={onClose} />
+      <div className="search-panel">
+        <div className="search-bar">
+          <SearchIcon />
+          <input
+            ref={inputRef}
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Rechercher un article, une catégorie, un drop…"
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <button className="search-close" onClick={onClose} aria-label="Fermer la recherche">✕</button>
+        </div>
+
+        <div className="search-body">
+          {q.length === 0 && (
+            <div className="search-empty">
+              <div className="eyebrow">Astuce</div>
+              <p>Tapez le nom d'une pièce, une catégorie (« sweat », « cargo »…) ou un drop (« SS26 »).</p>
+            </div>
+          )}
+          {q.length > 0 && results.length === 0 && (
+            <div className="search-empty">
+              <div className="eyebrow">Aucun résultat</div>
+              <p>Aucune pièce ne correspond à « {query} ».</p>
+            </div>
+          )}
+          {results.length > 0 && (
+            <ul className="search-results">
+              {results.map(p => (
+                <li key={p.id}>
+                  <button className="search-result" onClick={() => pickProduct(p.id)}>
+                    <div className="search-result-thumb">
+                      <ProductMedia product={p} showLabel={false} />
+                    </div>
+                    <div className="search-result-info">
+                      <div className="search-result-name">{p.name}</div>
+                      <div className="search-result-meta">{window.CATEGORY_LABEL[p.category]} · {p.drop}</div>
+                    </div>
+                    <div className="search-result-price">€{p.price}</div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -412,7 +519,7 @@ function Footer({ navigate }) {
         <a href="#">Livraison</a>
         <a href="#">Retours</a>
         <a href="#">Guide des tailles</a>
-        <a href="#">Contact</a>
+        <button onClick={() => navigate('contact')}>Contact</button>
       </div>
       <div className="fbottom">
         <div>© My Clothes 2026 · tous droits réservés</div>

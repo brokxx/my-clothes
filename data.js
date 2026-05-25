@@ -99,7 +99,7 @@ window.PRODUCTS = [
   // ============ SHORTS (catégorie shorts) ============
   // 2 modèles multi-couleurs, sélecteur PDP (Modèle B)
   {
-    id: 'sh01', name: 'Polo Casual Shorts', category: 'shorts', subcategory: 'casual', rank: 60, price: 60,
+    id: 'sh01', name: 'Polo Ralph Lauren Shorts', category: 'shorts', subcategory: 'casual', rank: 60, price: 60,
     sizes: ['S','M','L','XL','2XL','3XL'], stock: { S: 6, M: 12, L: 14, XL: 10, '2XL': 5, '3XL': 3 },
     palette: ['#0a0a0a','#1a1a1a','#cc0033'], glyph: 'PRL', drop: 'SS26',
     materials: 'Coton brossé · finition broderie Polo', cut: 'Regular', made: 'China',
@@ -203,7 +203,7 @@ window.PRODUCTS = [
 
   // ============ CLAQUETTES (sous-cat de sneakers) ============
   {
-    id: 'sl01', name: 'Slides Confort 78-53', category: 'sneakers', subcategory: 'claquettes', rank: 72, price: 51,
+    id: 'sl01', name: 'Yeezy Slide', category: 'sneakers', subcategory: 'claquettes', rank: 72, price: 51,
     sizes: ['36','37','38','39','40','41','42','43','44','45','46','47'],
     stock: { '36': 3, '37': 5, '38': 7, '39': 9, '40': 12, '41': 10, '42': 12, '43': 10, '44': 7, '45': 5, '46': 3, '47': 2 },
     palette: ['#1a1a1a','#3a2a1a','#dcd0b8'], glyph: 'SLD', drop: 'SS26',
@@ -261,7 +261,7 @@ window.PRODUCTS = [
 
   // ============ Boston Clog (sous-cat claquettes) — 14 colorways ============
   {
-    id: 'sl02', name: 'Boston Clog', category: 'sneakers', subcategory: 'claquettes', rank: 80, price: 75,
+    id: 'sl02', name: 'Birkenstock Boston', category: 'sneakers', subcategory: 'claquettes', rank: 80, price: 75,
     sizes: ['36','37','38','39','40','41','42','43','44','45','46'],
     stock: { '36': 2, '37': 4, '38': 6, '39': 8, '40': 10, '41': 9, '42': 10, '43': 8, '44': 6, '45': 3, '46': 2 },
     palette: ['#1a1a1a','#2a2a2a','#c0a060'], glyph: 'BST', drop: 'SS26',
@@ -288,7 +288,7 @@ window.PRODUCTS = [
 
   // ============ Runner K-14 (sous-cat runners) ============
   {
-    id: 's03', name: 'Runner K-14', category: 'sneakers', subcategory: 'runners', rank: 73, price: 130,
+    id: 's03', name: 'ASICS Gel-Kayano 14', category: 'sneakers', subcategory: 'runners', rank: 73, price: 130,
     sizes: ['36','37','38','39','40','41','42','43','44','45','46'],
     stock: { '36': 2, '37': 4, '38': 5, '39': 6, '40': 6, '41': 5, '42': 4, '43': 3, '44': 2, '45': 1, '46': 1 },
     palette: ['#f4f1ea','#bdb3a0','#cc0033'], glyph: 'K14', drop: 'SS26',

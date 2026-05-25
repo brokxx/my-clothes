@@ -104,9 +104,13 @@ function App() {
   const [productId, setProductId] = useStateA(null);
   const [catFilter, setCatFilter] = useStateA({ category: 'all', subcategory: 'all' });
   const [transitioning, setTransitioning] = useStateA(false);
+  const [history, setHistory] = useStateA([]);
 
   const navigate = useCallbackA((next, opts = {}) => {
     if (next === screen && !opts.force) return;
+    if (!opts.skipHistory) {
+      setHistory(prev => [...prev, { screen, productId, catFilter, scrollY: window.scrollY }]);
+    }
     setTransitioning(true);
     setTimeout(() => {
       setScreen(next);
@@ -114,7 +118,26 @@ function App() {
       window.scrollTo({ top: 0, behavior: 'instant' });
       setTimeout(() => setTransitioning(false), 60);
     }, 220);
-  }, [screen]);
+  }, [screen, productId, catFilter]);
+
+  const goBack = useCallbackA(() => {
+    setHistory(prev => {
+      if (prev.length === 0) return prev;
+      const last = prev[prev.length - 1];
+      setTransitioning(true);
+      setTimeout(() => {
+        setScreen(last.screen);
+        setProductId(last.productId);
+        setCatFilter(last.catFilter);
+        // Wait two frames so the restored screen is laid out before we scroll
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          window.scrollTo({ top: last.scrollY || 0, behavior: 'instant' });
+          setTransitioning(false);
+        }));
+      }, 220);
+      return prev.slice(0, -1);
+    });
+  }, []);
 
   const openProduct = useCallbackA((id) => {
     setProductId(id);
@@ -179,6 +202,7 @@ function App() {
   else if (screen === 'catalogue') body = <CatalogueScreen openProduct={openProduct} initialCategory={catFilter.category} initialSubcategory={catFilter.subcategory} />;
   else if (screen === 'product' && productId) body = <ProductScreen productId={productId} openProduct={openProduct} addToCart={addToCart} />;
   else if (screen === 'checkout')  body = <CheckoutScreen cart={cart} navigate={navigate} clearCart={clearCart} />;
+  else if (screen === 'contact')   body = <ContactScreen />;
   else body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory} audio={audio}/>;
 
   return (
@@ -196,11 +220,19 @@ function App() {
         audio={audio}
       />
 
+      {history.length > 0 && screen !== 'home' && (
+        <button className="back-btn" type="button" aria-label="Retour à la page précédente" onClick={goBack}>
+          <span aria-hidden="true">←</span>
+          <span className="back-btn-label">Retour</span>
+        </button>
+      )}
+
       <main key={screen + (screen === 'product' ? productId : '')} data-screen-label={
         screen === 'home' ? '01 Accueil' :
         screen === 'catalogue' ? '02 Catalogue' :
         screen === 'product' ? '03 Produit' :
-        screen === 'checkout' ? '04 Commande' : screen
+        screen === 'checkout' ? '04 Commande' :
+        screen === 'contact' ? '05 Contact' : screen
       }>
         {body}
       </main>
