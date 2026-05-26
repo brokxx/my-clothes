@@ -654,7 +654,7 @@ function ReturnsScreen() {
           Aucun <em>retour</em><br/>n'est <em>possible.</em>
         </h1>
         <p className="contact-lede">
-          Chaque pièce est produite en édition limitée et expédiée directement depuis l'atelier. Pour cette raison, <strong style={{ color: 'var(--fg)' }}>nous n'acceptons aucun retour ni échange</strong>, sauf défaut de fabrication avéré.
+          Chaque pièce est produite en édition limitée et expédiée directement depuis l'atelier. Pour cette raison, <strong style={{ color: 'var(--fg)' }}>nous n'acceptons aucun retour ni échange</strong>.
         </p>
       </section>
 
@@ -667,9 +667,6 @@ function ReturnsScreen() {
           </p>
           <p style={{ marginTop: 16 }}>
             En cas de doute, contactez-nous sur Discord avant de passer commande — l'équipe répond en quelques heures et peut vous conseiller sur le tombé, la coupe ou la taille.
-          </p>
-          <p style={{ marginTop: 16, color: 'var(--muted)', fontSize: 12 }}>
-            Défaut de fabrication&nbsp;: contactez le service client dans les 7 jours suivant la réception, photos à l'appui. Chaque cas est traité individuellement.
           </p>
         </div>
       </section>
