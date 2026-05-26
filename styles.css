@@ -40,8 +40,8 @@ html, body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition: background 600ms var(--ease), color 600ms var(--ease);
-  overflow-x: hidden;
 }
+body { overflow-x: clip; }
 
 body { min-height: 100vh; }
 
@@ -631,10 +631,9 @@ body { padding-top: 68px; } /* reserve space for fixed nav */
 .pdp-img:last-child { border-bottom: 0; }
 .pdp-info {
   position: sticky; top: 100px; align-self: start;
-  height: calc(100vh - 100px); padding: 48px 40px;
+  padding: 48px 40px;
   display: flex; flex-direction: column; gap: 24px;
   border-left: 1px solid var(--line);
-  overflow-y: auto;
 }
 .pdp-title {
   font-family: var(--display); font-style: italic; font-weight: 400;
@@ -861,7 +860,6 @@ footer .fmeta { font-family: var(--mono); font-size: 10px; letter-spacing: .16em
 /* Universal taps + safe scroll */
 body {
   -webkit-tap-highlight-color: transparent;
-  overscroll-behavior-y: contain;
 }
 a, button, [role="button"], .chip, .size-btn, .filter-btn, .btn {
   touch-action: manipulation;

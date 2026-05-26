@@ -82,9 +82,6 @@ function CartDrawer({ open, onClose, cart, updateQty, removeLine, onCheckout }) 
             </div>
             <button className="btn btn-accent" onClick={onCheckout}>Commander</button>
             <button className="btn btn-ghost" onClick={onClose}>Continuer mes achats</button>
-            <div className="muted mono" style={{ fontSize: 9, letterSpacing: '.16em', textTransform: 'uppercase', textAlign: 'center', marginTop: 4 }}>
-              Drop 003 expédié le 14 mars
-            </div>
           </div>
         )}
       </aside>
@@ -190,7 +187,6 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
                 {[
                   { id: 'standard', label: 'Standard', desc: '5–7 jours ouvrés', price: subtotal >= 250 ? 0 : 18 },
                   { id: 'express',  label: 'Express',  desc: '2–3 jours ouvrés', price: 32 },
-                  { id: 'pickup',   label: "Retrait à l'atelier — Paris 11", desc: 'Disponible le 14 mars', price: 0 },
                 ].map(opt => (
                   <button key={opt.id} onClick={() => set('shipMethod', opt.id)} style={{
                     display: 'grid', gridTemplateColumns: '1fr auto', gap: 20, padding: '18px 20px',

@@ -9,7 +9,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Anton&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" />
 
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=12" />
+
+  <script>
+    // Apply saved tweaks ASAP to avoid a flash of the default palette on refresh.
+    (function () {
+      try {
+        var saved = JSON.parse(localStorage.getItem('mc-tweaks') || 'null');
+        if (!saved || typeof saved !== 'object') return;
+        var pal = saved.palette;
+        if (!Array.isArray(pal) || pal.length < 3) return;
+        var bg = pal[0], fg = pal[1], accent = pal[2];
+        function hexToRgb(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c;}).join('');var n=parseInt(h,16);return [(n>>16)&255,(n>>8)&255,n&255];}
+        function toHex(r,g,b){return '#'+[r,g,b].map(function(v){v=Math.max(0,Math.min(255,Math.round(v)));return v.toString(16).padStart(2,'0');}).join('');}
+        function lum(h){var c=hexToRgb(h);return (0.299*c[0]+0.587*c[1]+0.114*c[2])/255;}
+        function shiftLight(h,d){var c=hexToRgb(h);var dir=lum(h)<0.5?1:-1;return toHex(c[0]+dir*d,c[1]+dir*d,c[2]+dir*d);}
+        function shiftToward(h,t,k){var a=hexToRgb(h),b=hexToRgb(t);return toHex(a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k);}
+        var r = document.documentElement;
+        r.style.setProperty('--bg', bg);
+        r.style.setProperty('--fg', fg);
+        r.style.setProperty('--accent', accent);
+        r.style.setProperty('--card', shiftLight(bg, 8));
+        r.style.setProperty('--line', shiftLight(bg, 14));
+        r.style.setProperty('--muted', shiftToward(bg, fg, 0.5));
+        r.style.setProperty('--accent-fg', bg);
+        r.setAttribute('data-theme', lum(bg) < 0.4 ? 'dark' : 'light');
+      } catch (e) {}
+    })();
+  </script>
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>

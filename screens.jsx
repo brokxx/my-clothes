@@ -159,7 +159,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
         <div className="hero-stack">
           <div className="eyebrow center-flex" style={{ justifyContent: 'space-between' }}>
             <span>Drop 003 — Printemps/Été 26</span>
-            <span>Édition limitée · Paris</span>
+            <span>Édition limitée</span>
           </div>
 
           <div>
@@ -588,7 +588,7 @@ function ProductScreen({ productId, openProduct, addToCart }) {
           <div className="muted" style={{ fontSize: 11, lineHeight: 1.6, fontFamily: 'var(--mono)', letterSpacing: '.04em', marginTop: 16 }}>
             Livraison offerte dès €250.<br/>
             Expédition sous 5 jours ouvrés.<br/>
-            Retours sous 30 jours — non porté, avec étiquettes.
+            Aucun retour ni échange — choisissez bien votre taille.
           </div>
         </aside>
       </div>
@@ -634,15 +634,47 @@ function ContactScreen() {
       <section className="contact-foot">
         <div>
           <div className="eyebrow">Atelier</div>
-          <p>Paris · Tokyo · Porto</p>
+          <p>Édition 003</p>
         </div>
         <div>
           <div className="eyebrow">Horaires</div>
-          <p>Lun–Ven · 10h–18h CET</p>
+          <p>Lun–Ven · 10h–18h</p>
         </div>
       </section>
     </div>
   );
 }
 
-Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen });
+function ReturnsScreen() {
+  return (
+    <div className="screen contact-screen">
+      <section className="contact-hero">
+        <div className="eyebrow">Politique de retour</div>
+        <h1 className="serif">
+          Aucun <em>retour</em><br/>n'est <em>possible.</em>
+        </h1>
+        <p className="contact-lede">
+          Chaque pièce est produite en édition limitée et expédiée directement depuis l'atelier. Pour cette raison, <strong style={{ color: 'var(--fg)' }}>nous n'acceptons aucun retour ni échange</strong>, sauf défaut de fabrication avéré.
+        </p>
+      </section>
+
+      <section className="contact-grid contact-grid--single">
+        <div className="contact-card" style={{ cursor: 'default' }}>
+          <div className="contact-card-eyebrow">Avant de commander</div>
+          <h2>Choisissez bien.</h2>
+          <p>
+            Prenez le temps de vérifier votre taille via le guide des tailles, relisez la description, les matières et la coupe de chaque article. Une fois la commande validée, elle est définitive.
+          </p>
+          <p style={{ marginTop: 16 }}>
+            En cas de doute, contactez-nous sur Discord avant de passer commande — l'équipe répond en quelques heures et peut vous conseiller sur le tombé, la coupe ou la taille.
+          </p>
+          <p style={{ marginTop: 16, color: 'var(--muted)', fontSize: 12 }}>
+            Défaut de fabrication&nbsp;: contactez le service client dans les 7 jours suivant la réception, photos à l'appui. Chaque cas est traité individuellement.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen, ReturnsScreen });
