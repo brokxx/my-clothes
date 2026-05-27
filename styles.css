@@ -416,11 +416,13 @@ body { padding-top: 68px; } /* reserve space for fixed nav */
 .cat-tile:hover { transform: translateY(-4px); }
 .cat-tile .cat-img { position: absolute; inset: 0; }
 .cat-tile .cat-label {
-  position: absolute; left: 14px; bottom: 14px; right: 14px; z-index: 2;
+  position: absolute; left: 0; bottom: 0; right: 0; z-index: 2;
   display: flex; justify-content: space-between; align-items: flex-end; gap: 10px;
+  padding: 14px;
   font-family: var(--display); font-style: italic; font-size: 22px; line-height: .95;
-  letter-spacing: -0.02em; color: var(--fg);
-  mix-blend-mode: difference;
+  letter-spacing: -0.02em; color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
 }
 .cat-tile .cat-label .arrow {
   font-family: var(--sans); font-size: 18px; opacity: .8;
