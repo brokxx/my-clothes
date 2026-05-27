@@ -466,7 +466,7 @@ window.NAV_CATS = [
       { id: 'court',      label: 'Court' },
       { id: 'claquettes', label: 'Claquettes' },
     ],
-    feature: 's01',
+    feature: 's04',
   },
   {
     id: 'hoodies', label: 'Sweats & Hoodies',
@@ -475,7 +475,7 @@ window.NAV_CATS = [
       { id: 'hoodies',   label: 'Hoodies' },
       { id: 'crewnecks', label: 'Sweats col rond' },
     ],
-    feature: 'h01',
+    feature: 'h06',
   },
   {
     id: 'tees', label: 'T-shirts',
@@ -495,7 +495,7 @@ window.NAV_CATS = [
       { id: 'trousers',   label: 'Pantalons' },
       { id: 'sweatpants', label: 'Joggings' },
     ],
-    feature: 'p01',
+    feature: 'p05',
   },
   {
     id: 'shorts', label: 'Shorts',
@@ -521,7 +521,7 @@ window.NAV_CATS = [
       { id: 'coats',   label: 'Manteaux & Macs' },
       { id: 'bombers', label: 'Bombers' },
     ],
-    feature: 'o01',
+    feature: 'o05',
   },
   {
     id: 'access', label: 'Accessoires',
@@ -534,7 +534,7 @@ window.NAV_CATS = [
       { id: 'belts',   label: 'Ceintures',      cat: 'access', sub: 'belts' },
       { id: 'jewelry', label: 'Bijoux',         cat: 'access', sub: 'jewelry' },
     ],
-    feature: 'a01',
+    feature: 'a05',
   },
 ];
 
