@@ -89,7 +89,6 @@ function TrendingRail({ trendingList, openProduct }) {
             <button key={p.id} className="rail-card" onClick={() => openProduct(p.id)}>
               <div className="pmedia">
                 <div className="pimg"><ProductMedia product={p} /></div>
-                {window.isLowStock(p) && <div className="lowstock">Plus que {window.totalStock(p)}</div>}
               </div>
               <div className="pinfo">
                 <div>
@@ -158,7 +157,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
 
         <div className="hero-stack">
           <div className="eyebrow center-flex" style={{ justifyContent: 'space-between' }}>
-            <span>Drop 003 — Printemps/Été 26</span>
+            <span>Drop 001 — Printemps/Été 26</span>
             <span>Édition limitée</span>
           </div>
 
@@ -207,7 +206,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
           <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o01')} showLabel={false}/>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>L'Atelier — N° 003</div>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>L'Atelier — N° 001</div>
           <h3>"Un manteau<br/>qui ne demande <em>rien</em><br/>en retour."</h3>
           <p>L'Atelier Mac est taillé dans un twill de coton encollé développé à Biella en six mois. Les épaules tombent. Les coutures sont étanchéifiées. Rien d'autre.</p>
           <p>Chaque pièce est finie à la main et étiquetée avec son numéro de production, son lot de tissu et le nom du tailleur.</p>
@@ -246,8 +245,6 @@ function ProductCard({ product, onClick }) {
       <div className="pmedia">
         <div className="pimg"><ProductMedia product={product} /></div>
         <div className="pimg alt"><ProductMedia product={product} alt /></div>
-        {window.isLowStock(product) && <div className="lowstock">Plus que {window.totalStock(product)}</div>}
-        {window.isSoldOut(product) && <div className="lowstock" style={{ color: 'var(--muted)', borderColor: 'var(--muted)' }}>Épuisé</div>}
       </div>
       <div className="pinfo">
         <div>
@@ -282,6 +279,26 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   const [priceBand, setPriceBand] = useStateS('all');
   const [panelOpen, setPanelOpen] = useStateS(false);
   const [query, setQuery] = useStateS('');
+  const [filtersHidden, setFiltersHidden] = useStateS(false);
+
+  useEffectS(() => {
+    let lastY = window.scrollY;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY;
+        if (y < 120) setFiltersHidden(false);
+        else if (delta > 6) setFiltersHidden(true);
+        else if (delta < -6) setFiltersHidden(false);
+        lastY = y;
+        raf = 0;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   // Incremental rendering: only N first products mounted; click "Voir plus"
   // to reveal the next batch. Resets to PAGE_SIZE whenever filters change so
   // mobile never has 70+ ProductCards in the DOM at once.
@@ -369,7 +386,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   return (
     <div className="screen">
       <section style={{ padding: '60px 28px 30px' }}>
-        <div className="eyebrow">Drop 003 — SS26</div>
+        <div className="eyebrow">Drop 001 — SS26</div>
         <h1 className="serif" style={{ fontSize: 'clamp(48px, 10vw, 140px)', lineHeight: .85, letterSpacing: '-0.04em', marginTop: 14 }}>
           {catLabel === 'Catalogue' ? (
             <>Le <em style={{ fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 300, textTransform: 'uppercase', fontSize: '.55em', letterSpacing: '.02em' }}>catalogue</em></>
@@ -382,7 +399,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
         </div>
       </section>
 
-      <div className="filters">
+      <div className={"filters" + (filtersHidden ? " filters--hidden" : "")}>
         <button className="filter-btn" data-active={panelOpen} onClick={() => setPanelOpen(!panelOpen)}>
           <span>Filtres</span>
           {activeFilters > 0 && <span className="badge">{activeFilters}</span>}
@@ -558,16 +575,11 @@ function ProductScreen({ productId, openProduct, addToCart }) {
             </div>
             <div className="size-grid" style={{ gridTemplateColumns: `repeat(${Math.min(product.sizes.length, 6)}, 1fr)` }}>
               {product.sizes.map(s => (
-                <button key={s} className="size-btn" disabled={sizeStock(s) === 0} aria-pressed={size === s} onClick={() => setSize(s)}>
+                <button key={s} className="size-btn" aria-pressed={size === s} onClick={() => setSize(s)}>
                   {s}
                 </button>
               ))}
             </div>
-            {size && (
-              <div className="mono" style={{ fontSize: 10, marginTop: 8, color: sizeStock(size) <= 3 ? 'var(--accent)' : 'var(--muted)' }}>
-                Il reste {sizeStock(size)} en {size}
-              </div>
-            )}
           </div>
 
           <button className="btn btn-accent" onClick={handleAdd} disabled={!size} style={{ opacity: !size ? 0.4 : 1 }}>
@@ -580,14 +592,11 @@ function ProductScreen({ productId, openProduct, addToCart }) {
             <dt>Coupe</dt><dd>{product.cut}</dd>
             <dt>Matière</dt><dd>{product.materials.split(' · ')[0]}</dd>
             <dt>Origine</dt><dd>{product.made}</dd>
-            <dt>Drop</dt><dd>{product.drop} — N° 003</dd>
-            <dt>Stock</dt><dd>{totalLeft} unités au total</dd>
+            <dt>Drop</dt><dd>{product.drop} — N° 001</dd>
             <dt>Édition</dt><dd>Numérotée</dd>
           </dl>
 
           <div className="muted" style={{ fontSize: 11, lineHeight: 1.6, fontFamily: 'var(--mono)', letterSpacing: '.04em', marginTop: 16 }}>
-            Livraison offerte dès €250.<br/>
-            Expédition sous 5 jours ouvrés.<br/>
             Aucun retour ni échange — choisissez bien votre taille.
           </div>
         </aside>
@@ -613,7 +622,7 @@ function ContactScreen() {
   return (
     <div className="screen contact-screen">
       <section className="contact-hero">
-        <div className="eyebrow">Atelier 003 — Service client</div>
+        <div className="eyebrow">Atelier 001 — Service client</div>
         <h1 className="serif">
           Restons <em>en contact.</em>
         </h1>
@@ -634,7 +643,7 @@ function ContactScreen() {
       <section className="contact-foot">
         <div>
           <div className="eyebrow">Atelier</div>
-          <p>Édition 003</p>
+          <p>Édition 001</p>
         </div>
         <div>
           <div className="eyebrow">Horaires</div>

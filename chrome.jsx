@@ -497,7 +497,7 @@ function Footer({ navigate, openCategory }) {
     <footer>
       <div className="fcol">
         <div className="flogo">My<br/><i>Clothes</i></div>
-        <div className="fmeta">SS26 · Édition 003<br/>Atelier 003</div>
+        <div className="fmeta">SS26 · Édition 001<br/>Atelier 001</div>
       </div>
       <div className="fcol">
         <h4>Boutique</h4>
