@@ -3,13 +3,13 @@
    ============================================================ */
 
 :root {
-  --bg: #0a0a0a;
-  --fg: #f4f1ea;
-  --muted: #6e6a63;
-  --line: #1f1d1a;
-  --card: #111110;
+  --bg: #f4f1ea;
+  --fg: #0a0a0a;
+  --muted: #807c75;
+  --line: #d8d3c8;
+  --card: #ebe7dd;
   --accent: #ff3b00;          /* hot blood-orange */
-  --accent-fg: #0a0a0a;
+  --accent-fg: #f4f1ea;
 
   --display: "Instrument Serif", "Times New Roman", serif;
   --sans: "Schibsted Grotesk", system-ui, sans-serif;
@@ -19,13 +19,13 @@
   --ease-bounce: cubic-bezier(.34,1.56,.64,1);
 }
 
-[data-theme="light"] {
-  --bg: #f4f1ea;
-  --fg: #0a0a0a;
-  --muted: #807c75;
-  --line: #d8d3c8;
-  --card: #ebe7dd;
-  --accent-fg: #f4f1ea;
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #f4f1ea;
+  --muted: #6e6a63;
+  --line: #1f1d1a;
+  --card: #111110;
+  --accent-fg: #0a0a0a;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
