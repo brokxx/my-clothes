@@ -153,7 +153,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
       <section className="hero">
         {/* Background image — replace this with a real lifestyle/product photo later */}
         <div className="hero-bg" ref={heroBgRef} style={{ transform: 'translateY(0px) scale(1.08)' }}>
-          <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o01')} showLabel={false} />
+          <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o05')} showLabel={false} />
         </div>
 
         <div className="hero-stack">
@@ -204,15 +204,15 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
       {/* ---------- EDITORIAL BLOCK ---------- */}
       <section className="edit-block">
         <div>
-          <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o01')} showLabel={false}/>
+          <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o05')} showLabel={false}/>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>L'Atelier — N° 003</div>
-          <h3>"Un manteau<br/>qui ne demande <em>rien</em><br/>en retour."</h3>
-          <p>L'Atelier Mac est taillé dans un twill de coton encollé développé à Biella en six mois. Les épaules tombent. Les coutures sont étanchéifiées. Rien d'autre.</p>
-          <p>Chaque pièce est finie à la main et étiquetée avec son numéro de production, son lot de tissu et le nom du tailleur.</p>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>Pièce phare — N° 003</div>
+          <h3>"Une <em>doudoune</em><br/>qui ne s'oublie <em>jamais.</em>"</h3>
+          <p>La Doudoune Palm Angels × Moncler Maya combine le nylon brillant signature Moncler avec les codes streetwear de Palm Angels. Garnissage en plumes naturelles, finition main.</p>
+          <p>Édition limitée, chaque pièce est numérotée et certifiée d'origine.</p>
           <div style={{ marginTop: 20 }}>
-            <button className="btn" onClick={() => openProduct('o01')}>Découvrir le Mac — €695</button>
+            <button className="btn" onClick={() => openProduct('o05')}>Découvrir la doudoune — €220</button>
           </div>
         </div>
       </section>
