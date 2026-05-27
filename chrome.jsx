@@ -497,7 +497,7 @@ function Footer({ navigate, openCategory }) {
     <footer>
       <div className="fcol">
         <div className="flogo">My<br/><i>Clothes</i></div>
-        <div className="fmeta">SS26 · Édition 003<br/>Atelier Paris · 11ème</div>
+        <div className="fmeta">SS26 · Édition 003<br/>Atelier 003</div>
       </div>
       <div className="fcol">
         <h4>Boutique</h4>
@@ -531,13 +531,13 @@ function Footer({ navigate, openCategory }) {
       <div className="fcol">
         <h4>Aide</h4>
         <a href="#">Livraison</a>
-        <a href="#">Retours</a>
+        <button onClick={() => navigate('returns')}>Retours</button>
         <a href="#">Guide des tailles</a>
         <button onClick={() => navigate('contact')}>Contact</button>
       </div>
       <div className="fbottom">
-        <div>© My Clothes 2026 · tous droits réservés</div>
-        <div>Conçu entre Paris, Tokyo & Porto</div>
+        <div>© My Clothes 2026</div>
+        <div>Conçu en atelier</div>
       </div>
     </footer>
   );

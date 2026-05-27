@@ -203,6 +203,7 @@ function App() {
   else if (screen === 'product' && productId) body = <ProductScreen productId={productId} openProduct={openProduct} addToCart={addToCart} />;
   else if (screen === 'checkout')  body = <CheckoutScreen cart={cart} navigate={navigate} clearCart={clearCart} />;
   else if (screen === 'contact')   body = <ContactScreen />;
+  else if (screen === 'returns')   body = <ReturnsScreen />;
   else if (screen === 'stores')    body = <StoresScreen />;
   else if (screen === 'about')     body = <AboutScreen />;
   else body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory} audio={audio}/>;
