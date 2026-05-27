@@ -1,4 +1,4 @@
-# My Clothes — Atelier 003
+# My Clothes — Atelier 001
 
 Site e-commerce prototype en vanilla React/Babel (no-build), déployable n'importe où en static.
 

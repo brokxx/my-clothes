@@ -158,7 +158,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
 
         <div className="hero-stack">
           <div className="eyebrow center-flex" style={{ justifyContent: 'space-between' }}>
-            <span>Drop 003 — Printemps/Été 26</span>
+            <span>Drop 001 — Printemps/Été 26</span>
             <span>Édition limitée</span>
           </div>
 
@@ -207,7 +207,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
           <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o01')} showLabel={false}/>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>L'Atelier — N° 003</div>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>L'Atelier — N° 001</div>
           <h3>"Un manteau<br/>qui ne demande <em>rien</em><br/>en retour."</h3>
           <p>L'Atelier Mac est taillé dans un twill de coton encollé développé à Biella en six mois. Les épaules tombent. Les coutures sont étanchéifiées. Rien d'autre.</p>
           <p>Chaque pièce est finie à la main et étiquetée avec son numéro de production, son lot de tissu et le nom du tailleur.</p>
@@ -369,7 +369,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   return (
     <div className="screen">
       <section style={{ padding: '60px 28px 30px' }}>
-        <div className="eyebrow">Drop 003 — SS26</div>
+        <div className="eyebrow">Drop 001 — SS26</div>
         <h1 className="serif" style={{ fontSize: 'clamp(48px, 10vw, 140px)', lineHeight: .85, letterSpacing: '-0.04em', marginTop: 14 }}>
           {catLabel === 'Catalogue' ? (
             <>Le <em style={{ fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 300, textTransform: 'uppercase', fontSize: '.55em', letterSpacing: '.02em' }}>catalogue</em></>
@@ -580,14 +580,12 @@ function ProductScreen({ productId, openProduct, addToCart }) {
             <dt>Coupe</dt><dd>{product.cut}</dd>
             <dt>Matière</dt><dd>{product.materials.split(' · ')[0]}</dd>
             <dt>Origine</dt><dd>{product.made}</dd>
-            <dt>Drop</dt><dd>{product.drop} — N° 003</dd>
+            <dt>Drop</dt><dd>{product.drop} — N° 001</dd>
             <dt>Stock</dt><dd>{totalLeft} unités au total</dd>
             <dt>Édition</dt><dd>Numérotée</dd>
           </dl>
 
           <div className="muted" style={{ fontSize: 11, lineHeight: 1.6, fontFamily: 'var(--mono)', letterSpacing: '.04em', marginTop: 16 }}>
-            Livraison offerte dès €250.<br/>
-            Expédition sous 5 jours ouvrés.<br/>
             Aucun retour ni échange — choisissez bien votre taille.
           </div>
         </aside>
@@ -613,7 +611,7 @@ function ContactScreen() {
   return (
     <div className="screen contact-screen">
       <section className="contact-hero">
-        <div className="eyebrow">Atelier 003 — Service client</div>
+        <div className="eyebrow">Atelier 001 — Service client</div>
         <h1 className="serif">
           Restons <em>en contact.</em>
         </h1>
@@ -634,7 +632,7 @@ function ContactScreen() {
       <section className="contact-foot">
         <div>
           <div className="eyebrow">Atelier</div>
-          <p>Édition 003</p>
+          <p>Édition 001</p>
         </div>
         <div>
           <div className="eyebrow">Horaires</div>

@@ -4,7 +4,7 @@ Tout assistant Claude qui ouvre une session sur ce projet doit suivre ces règle
 
 ## Contexte projet
 
-- **Nom** : My Clothes — Atelier 003 (`brokxx/my-clothes`)
+- **Nom** : My Clothes — Atelier 001 (`brokxx/my-clothes`)
 - **Stack** : Vanilla React 18 + Babel standalone via CDN. AUCUN bundler, AUCUN npm install. Tout est servi statiquement.
 - **Lancer en local** : `python3 -m http.server 8765` dans la racine du repo → http://localhost:8765/
 - **UI 100% en français** : labels, boutons, placeholders, copy. Les noms de marques/clubs étrangers (Liverpool, PSG, Nike) restent dans leur langue.
