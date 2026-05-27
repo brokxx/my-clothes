@@ -89,7 +89,6 @@ function TrendingRail({ trendingList, openProduct }) {
             <button key={p.id} className="rail-card" onClick={() => openProduct(p.id)}>
               <div className="pmedia">
                 <div className="pimg"><ProductMedia product={p} /></div>
-                {window.isLowStock(p) && <div className="lowstock">Plus que {window.totalStock(p)}</div>}
               </div>
               <div className="pinfo">
                 <div>
@@ -246,8 +245,6 @@ function ProductCard({ product, onClick }) {
       <div className="pmedia">
         <div className="pimg"><ProductMedia product={product} /></div>
         <div className="pimg alt"><ProductMedia product={product} alt /></div>
-        {window.isLowStock(product) && <div className="lowstock">Plus que {window.totalStock(product)}</div>}
-        {window.isSoldOut(product) && <div className="lowstock" style={{ color: 'var(--muted)', borderColor: 'var(--muted)' }}>Épuisé</div>}
       </div>
       <div className="pinfo">
         <div>
@@ -558,16 +555,11 @@ function ProductScreen({ productId, openProduct, addToCart }) {
             </div>
             <div className="size-grid" style={{ gridTemplateColumns: `repeat(${Math.min(product.sizes.length, 6)}, 1fr)` }}>
               {product.sizes.map(s => (
-                <button key={s} className="size-btn" disabled={sizeStock(s) === 0} aria-pressed={size === s} onClick={() => setSize(s)}>
+                <button key={s} className="size-btn" aria-pressed={size === s} onClick={() => setSize(s)}>
                   {s}
                 </button>
               ))}
             </div>
-            {size && (
-              <div className="mono" style={{ fontSize: 10, marginTop: 8, color: sizeStock(size) <= 3 ? 'var(--accent)' : 'var(--muted)' }}>
-                Il reste {sizeStock(size)} en {size}
-              </div>
-            )}
           </div>
 
           <button className="btn btn-accent" onClick={handleAdd} disabled={!size} style={{ opacity: !size ? 0.4 : 1 }}>
@@ -581,7 +573,6 @@ function ProductScreen({ productId, openProduct, addToCart }) {
             <dt>Matière</dt><dd>{product.materials.split(' · ')[0]}</dd>
             <dt>Origine</dt><dd>{product.made}</dd>
             <dt>Drop</dt><dd>{product.drop} — N° 001</dd>
-            <dt>Stock</dt><dd>{totalLeft} unités au total</dd>
             <dt>Édition</dt><dd>Numérotée</dd>
           </dl>
 
