@@ -2,39 +2,6 @@
 // Each product gets a duotone palette so the placeholders look intentional/editorial.
 
 window.PRODUCTS = [
-  // ============ TEES ============
-  { id: 't01', name: 'Atelier Tee',        category: 'tees',     subcategory: 'short-sleeve', rank: 1,  price: 95,  sizes: ['XS','S','M','L','XL'], stock: { XS: 2, S: 8, M: 12, L: 4, XL: 0 }, palette: ['#1a1a1a','#2a2620','#48413a'], glyph: 'TEE', drop: 'SS26', materials: 'Heavyweight 240 gsm jersey · 100% organic cotton', cut: 'Boxy', made: 'Portugal' },
-  { id: 't02', name: 'Static Tee',         category: 'tees',     subcategory: 'short-sleeve', rank: 6,  price: 110, sizes: ['S','M','L','XL'],     stock: { S: 1, M: 6, L: 5, XL: 3 }, palette: ['#9c8b76','#5e503e','#2b2419'], glyph: 'TEE', drop: 'SS26', materials: 'Garment-dyed 220 gsm jersey · 100% Pima cotton', cut: 'Relaxed', made: 'Italy' },
-  { id: 't03', name: 'Long-Sleeve Index',  category: 'tees',     subcategory: 'long-sleeve',  rank: 14, price: 145, sizes: ['XS','S','M','L','XL'], stock: { XS: 3, S: 4, M: 2, L: 3, XL: 1 }, palette: ['#f0eadf','#bdb3a0','#5c544a'], glyph: 'LST', drop: 'SS26', materials: 'Double-knit interlock · combed cotton', cut: 'Standard', made: 'Portugal' },
-
-  // ============ HOODIES ============
-  { id: 'h01', name: 'Cathedral Hoodie',   category: 'hoodies',  subcategory: 'hoodies',   rank: 2,  price: 295, sizes: ['XS','S','M','L','XL'], stock: { XS: 0, S: 2, M: 5, L: 3, XL: 1 }, palette: ['#0e0e10','#1f1d22','#3a3640'], glyph: 'HOOD', drop: 'SS26', materials: 'Brushed 500 gsm fleece · 80% cotton, 20% recycled poly', cut: 'Oversized', made: 'Japan' },
-  { id: 'h02', name: 'Static Hoodie',      category: 'hoodies',  subcategory: 'hoodies',   rank: 8,  price: 320, sizes: ['S','M','L','XL'],     stock: { S: 4, M: 7, L: 6, XL: 2 }, palette: ['#d6cfc0','#9a8f7c','#544b3e'], glyph: 'HOOD', drop: 'SS26', materials: 'Loop-back terry · 480 gsm', cut: 'Boxy', made: 'Portugal' },
-  { id: 'h03', name: 'Zip Crew',           category: 'hoodies',  subcategory: 'crewnecks', rank: 10, price: 245, sizes: ['S','M','L','XL'],     stock: { S: 3, M: 8, L: 4, XL: 0 }, palette: ['#3a3a3a','#535353','#7a7a7a'], glyph: 'ZIP', drop: 'AW25', materials: 'Heavyweight French terry · 460 gsm', cut: 'Standard', made: 'Italy' },
-
-  // ============ OUTERWEAR ============
-  { id: 'o01', name: 'Atelier Mac',        category: 'outerwear',subcategory: 'coats',     rank: 4,  price: 695, sizes: ['S','M','L','XL'],     stock: { S: 1, M: 2, L: 2, XL: 1 }, palette: ['#1c1c1c','#2f2c28','#5a5048'], glyph: 'MAC', drop: 'SS26', materials: 'Bonded cotton-poly twill · sealed seams', cut: 'Relaxed', made: 'Italy' },
-  { id: 'o02', name: 'Index Bomber',       category: 'outerwear',subcategory: 'bombers',   rank: 7,  price: 545, sizes: ['XS','S','M','L','XL'], stock: { XS: 2, S: 4, M: 3, L: 5, XL: 2 }, palette: ['#0b0d12','#1a2030','#2e3a52'], glyph: 'BMR', drop: 'AW25', materials: 'Memory nylon · recycled satin lining', cut: 'Standard', made: 'Japan' },
-  { id: 'o03', name: 'Cocoon Parka',       category: 'outerwear',subcategory: 'coats',     rank: 16, price: 895, sizes: ['M','L','XL'],         stock: { M: 1, L: 1, XL: 0 }, palette: ['#2b2620','#473d33','#7a695a'], glyph: 'PRK', drop: 'AW25', materials: 'Waxed cotton · removable shell', cut: 'Oversized', made: 'Italy' },
-
-  // ============ PANTS ============
-  { id: 'p01', name: 'Field Cargo',        category: 'pants',    subcategory: 'cargo',     rank: 5,  price: 285, sizes: ['28','30','32','34','36'], stock: { '28': 2, '30': 5, '32': 6, '34': 3, '36': 1 }, palette: ['#4a4338','#665a48','#867a64'], glyph: 'CGO', drop: 'SS26', materials: 'Garment-dyed ripstop · 100% cotton', cut: 'Relaxed', made: 'Portugal' },
-  { id: 'p02', name: 'Wide Trouser',       category: 'pants',    subcategory: 'trousers',  rank: 11, price: 245, sizes: ['28','30','32','34','36'], stock: { '28': 1, '30': 4, '32': 8, '34': 4, '36': 2 }, palette: ['#1a1815','#2c2823','#4a4338'], glyph: 'WTR', drop: 'SS26', materials: 'Wool-cotton blend · drape twill', cut: 'Wide', made: 'Italy' },
-  { id: 'p03', name: 'Sweatpant 01',       category: 'pants',    subcategory: 'sweatpants',rank: 9,  price: 215, sizes: ['XS','S','M','L','XL'], stock: { XS: 3, S: 5, M: 6, L: 5, XL: 2 }, palette: ['#dad3c2','#a89e87','#5c5446'], glyph: 'SWP', drop: 'SS26', materials: 'Loop-back terry · 380 gsm', cut: 'Relaxed', made: 'Portugal' },
-
-  // ============ CAPS ============
-  { id: 'c01', name: 'Logo Cap',           category: 'caps',     subcategory: 'caps',      rank: 12, price: 85,  sizes: ['OS'],                 stock: { OS: 12 }, palette: ['#0e0e0e','#1c1c1c','#363636'], glyph: 'CAP', drop: 'SS26', materials: 'Brushed cotton twill · leather strap', cut: '6-panel', made: 'Italy' },
-  { id: 'c02', name: 'Field Bucket',       category: 'caps',     subcategory: 'bucket',    rank: 17, price: 95,  sizes: ['S/M','L/XL'],         stock: { 'S/M': 3, 'L/XL': 4 }, palette: ['#4a4338','#6e6253','#988a76'], glyph: 'BKT', drop: 'SS26', materials: 'Waxed canvas', cut: 'Bucket', made: 'Portugal' },
-
-  // ============ ACCESSORIES ============
-  { id: 'a01', name: 'Atelier Tote',       category: 'access',   subcategory: 'bags',      rank: 13, price: 145, sizes: ['OS'],                 stock: { OS: 8 }, palette: ['#e8e1d2','#b8ad94','#6c6051'], glyph: 'TOT', drop: 'SS26', materials: 'Heavyweight canvas · webbing handles', cut: 'Tote', made: 'Italy' },
-  { id: 'a02', name: 'Mono Belt',          category: 'access',   subcategory: 'belts',     rank: 18, price: 185, sizes: ['80','85','90','95'],  stock: { '80': 2, '85': 3, '90': 4, '95': 2 }, palette: ['#0e0e0e','#1a1a1a','#2a2a2a'], glyph: 'BLT', drop: 'AW25', materials: 'Italian vegetable-tanned leather', cut: '35mm', made: 'Italy' },
-  { id: 'a03', name: 'Curve Pendant',      category: 'access',   subcategory: 'jewelry',   rank: 19, price: 245, sizes: ['OS'],                 stock: { OS: 4 }, palette: ['#cfcfcf','#9a9a9a','#5a5a5a'], glyph: 'PND', drop: 'SS26', materials: 'Sterling silver · brushed finish', cut: 'Pendant', made: 'Japan' },
-
-  // ============ SNEAKERS ============
-  { id: 's01', name: 'Runner 001',         category: 'sneakers', subcategory: 'runners',   rank: 3,  price: 425, sizes: ['40','41','42','43','44','45'], stock: { '40': 1, '41': 2, '42': 3, '43': 4, '44': 2, '45': 1 }, palette: ['#f0eadf','#bdb3a0','#5c544a'], glyph: 'RUN', drop: 'SS26', materials: 'Italian leather upper · EVA midsole', cut: 'Low-top', made: 'Italy' },
-  { id: 's02', name: 'Court 002',          category: 'sneakers', subcategory: 'court',     rank: 15, price: 365, sizes: ['40','41','42','43','44','45'], stock: { '40': 0, '41': 3, '42': 5, '43': 4, '44': 3, '45': 0 }, palette: ['#1a1a1a','#2a2a2a','#4a4a4a'], glyph: 'CRT', drop: 'AW25', materials: 'Suede upper · gum rubber sole', cut: 'Low-top', made: 'Portugal' },
-
   // ============ MAILLOTS DE FOOT (T-shirts > maillots-foot) ============
   // 33 maillots issus du listing USFans 2023/24 Season Series
   { id: 'j01', name: 'Liverpool Home 22/23',           category: 'tees', subcategory: 'maillots-foot', rank: 20, price: 25,  sizes: ['S','M','L','XL','XXL'], stock: { S: 4, M: 8, L: 6, XL: 5, XXL: 2 }, palette: ['#c8102e','#8b0000','#ffffff'], glyph: 'LFC', drop: 'SS26', materials: 'Polyester recyclé Nike Dri-FIT', cut: 'Standard', made: 'Thailand', image: 'uploads/jerseys/j01.jpg' },
