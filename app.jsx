@@ -152,6 +152,39 @@ function App() {
   // expose for mega-menu featured product clicks
   useEffectA(() => { window.__openProductFromNav = openProduct; }, [openProduct]);
 
+  // ---- Admin route (#admin) ----
+  useEffectA(() => {
+    const syncHash = () => {
+      if (window.location.hash === '#admin' && screen !== 'admin') {
+        setScreen('admin');
+      } else if (window.location.hash !== '#admin' && screen === 'admin') {
+        setScreen('home');
+      }
+    };
+    syncHash();
+    window.addEventListener('hashchange', syncHash);
+    return () => window.removeEventListener('hashchange', syncHash);
+  }, [screen]);
+
+  // ---- Raccourci clavier admin : Ctrl+Shift+A ----
+  useEffectA(() => {
+    const onKey = (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        window.location.hash = '#admin';
+        setScreen('admin');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  // ---- Logger visites (sauf admin) ----
+  useEffectA(() => {
+    if (screen === 'admin' || !window.AdminLog) return;
+    window.AdminLog.push('visit', { screen, productId: productId || null });
+  }, [screen, productId]);
+
   // cart state
   const [cart, setCart] = useStateA(() => {
     try { return JSON.parse(localStorage.getItem('mc-cart') || '[]'); } catch { return []; }
@@ -206,24 +239,27 @@ function App() {
   else if (screen === 'returns')   body = <ReturnsScreen />;
   else if (screen === 'stores')    body = <StoresScreen />;
   else if (screen === 'about')     body = <AboutScreen />;
+  else if (screen === 'admin')     body = <AdminScreen navigate={navigate} />;
   else body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory} audio={audio}/>;
 
   return (
     <React.Fragment>
       <SvgDefs />
 
-      <Header
-        screen={screen}
-        navigate={navigate}
-        openCategory={openCategory}
-        cartCount={cartCount}
-        onOpenCart={() => setCartOpen(true)}
-        theme={theme}
-        onToggleTheme={onToggleTheme}
-        audio={audio}
-      />
+      {screen !== 'admin' && (
+        <Header
+          screen={screen}
+          navigate={navigate}
+          openCategory={openCategory}
+          cartCount={cartCount}
+          onOpenCart={() => setCartOpen(true)}
+          theme={theme}
+          onToggleTheme={onToggleTheme}
+          audio={audio}
+        />
+      )}
 
-      {history.length > 0 && screen !== 'home' && (
+      {history.length > 0 && screen !== 'home' && screen !== 'admin' && (
         <button className="back-btn" type="button" aria-label="Retour à la page précédente" onClick={goBack}>
           <span aria-hidden="true">←</span>
           <span className="back-btn-label">Retour</span>
@@ -240,7 +276,7 @@ function App() {
         {body}
       </main>
 
-      {screen !== 'checkout' && <Footer navigate={navigate} openCategory={openCategory} />}
+      {screen !== 'checkout' && screen !== 'admin' && <Footer navigate={navigate} openCategory={openCategory} />}
 
       <CartDrawer
         open={cartOpen}
@@ -256,7 +292,7 @@ function App() {
       {transitioning && <div className="page-mask in" />}
 
       {/* Tweaks panel */}
-      <TweaksPanel title="Tweaks">
+      {screen !== 'admin' && <TweaksPanel title="Tweaks">
         <TweakSection title="Palette" subtitle="Fond · Texte · Accent">
           <TweakColor
             label="Combo"
@@ -301,7 +337,7 @@ function App() {
             onChange={(v) => setTweak({ boldHero: v })}
           />
         </TweakSection>
-      </TweaksPanel>
+      </TweaksPanel>}
     </React.Fragment>
   );
 }
