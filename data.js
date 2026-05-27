@@ -363,7 +363,7 @@ window.PRODUCTS = [
       { id: 'brn', label: 'Brun',  hex: '#7a4a30', image: 'uploads/batch28/yeezy-hoodie/c04.jpg' },
     ],
   },
-  { id: 'h07', name: 'Pull tricot LV monogramme', category: 'hoodies', subcategory: 'crewnecks', rank: 105, price: 95, sizes: ['S','M','L','XL'], stock: { S: 2, M: 4, L: 4, XL: 2 }, palette: ['#3a2a1a','#5a4a30','#c8a060'], glyph: 'LV', drop: 'SS26', materials: 'Laine mélangée · monogramme jacquard', cut: 'Regular', made: 'China' },
+  { id: 'h07', name: 'Pull tricot LV Comics', category: 'hoodies', subcategory: 'crewnecks', rank: 105, price: 95, sizes: ['S','M','L','XL'], stock: { S: 2, M: 4, L: 4, XL: 2 }, palette: ['#f0e8dc','#a08070','#3a2a1a'], glyph: 'LV', drop: 'SS26', materials: 'Coton brossé · imprimé LV Comics all-over', cut: 'Regular', made: 'China', image: 'uploads/batch28/lv-knit/c01.jpg' },
   { id: 'h08', name: 'Nike NOCTA Tech Fleece Hoodie', category: 'hoodies', subcategory: 'hoodies', rank: 106, price: 95, sizes: ['S','M','L','XL'], stock: { S: 3, M: 6, L: 6, XL: 3 }, palette: ['#1a1a1a','#2a2a2a','#787878'], glyph: 'NCT', drop: 'SS26', materials: 'Tech Fleece Nike · collab Drake NOCTA', cut: 'Standard', made: 'Vietnam', image: 'uploads/batch28/nike-nocta/c01.jpg',
     colors: [
       { id: 'blk',  label: 'Noir',          hex: '#1a1a1a', image: 'uploads/batch28/nike-nocta/c01.jpg' },
@@ -379,10 +379,10 @@ window.PRODUCTS = [
       { id: 'ivy', label: 'Ivy Green',     hex: '#3a5a3a', image: 'uploads/batch28/cp-zip/c04.jpg' },
     ],
   },
-  { id: 'h10', name: 'Ralph Lauren Full Zip Hoodie', category: 'hoodies', subcategory: 'crewnecks', rank: 108, price: 65, sizes: ['S','M','L','XL'], stock: { S: 3, M: 7, L: 6, XL: 3 }, palette: ['#0a3a78','#cc0033','#f4f1ea'], glyph: 'RL', drop: 'SS26', materials: 'Coton mélangé · broderie Polo poney', cut: 'Standard', made: 'China' },
+  { id: 'h10', name: 'Ralph Lauren Full Zip Hoodie', category: 'hoodies', subcategory: 'crewnecks', rank: 108, price: 65, sizes: ['S','M','L','XL'], stock: { S: 3, M: 7, L: 6, XL: 3 }, palette: ['#1a1a1a','#0a3a78','#cc0033'], glyph: 'RL', drop: 'SS26', materials: 'Coton mélangé · broderie Polo poney', cut: 'Standard', made: 'China', image: 'uploads/batch28/ralph-zip/c01.jpg' },
 
   // Outerwear (3)
-  { id: 'o04', name: 'K-Way Le Vrai Coupe-vent', category: 'outerwear', subcategory: 'coats', rank: 109, price: 65, sizes: ['S','M','L','XL'], stock: { S: 4, M: 8, L: 8, XL: 4 }, palette: ['#cc0033','#1a1a1a','#f4f1ea'], glyph: 'KWY', drop: 'SS26', materials: 'Nylon imperméable · pliable banane ceinture', cut: 'Standard', made: 'Italy' },
+  { id: 'o04', name: 'K-Way Le Vrai Coupe-vent', category: 'outerwear', subcategory: 'coats', rank: 109, price: 65, sizes: ['S','M','L','XL'], stock: { S: 4, M: 8, L: 8, XL: 4 }, palette: ['#cc0033','#1a1a1a','#f4f1ea'], glyph: 'KWY', drop: 'SS26', materials: 'Nylon imperméable · pliable banane ceinture', cut: 'Standard', made: 'Italy', image: 'uploads/batch28/kway/c01.jpg' },
   { id: 'o05', name: 'Doudoune Palm Angels × Moncler Maya', category: 'outerwear', subcategory: 'coats', rank: 110, price: 220, sizes: ['S','M','L','XL'], stock: { S: 1, M: 3, L: 3, XL: 2 }, palette: ['#1a1a1a','#5a8aca','#f4f1ea'], glyph: 'PAM', drop: 'SS26', materials: 'Nylon brillant Maya · plumes naturelles', cut: 'Regular', made: 'Italy', image: 'uploads/batch28/palm-moncler/c01.jpg',
     colors: [
       { id: 'lb', label: 'Bleu clair / Blanc', hex: '#5a8aca', image: 'uploads/batch28/palm-moncler/c01.jpg' },
@@ -390,7 +390,7 @@ window.PRODUCTS = [
       { id: 'blk',label: 'Noir',                hex: '#0a0a0a', image: 'uploads/batch28/palm-moncler/c03.jpg' },
     ],
   },
-  { id: 'o06', name: 'Doudoune Ralph Lauren Polo', category: 'outerwear', subcategory: 'coats', rank: 111, price: 130, sizes: ['S','M','L','XL'], stock: { S: 2, M: 5, L: 5, XL: 2 }, palette: ['#0a3a78','#1a1a1a','#cc0033'], glyph: 'RLP', drop: 'SS26', materials: 'Nylon léger · doudoune Ralph budget', cut: 'Regular', made: 'China' },
+  { id: 'o06', name: 'Doudoune Ralph Lauren Polo', category: 'outerwear', subcategory: 'coats', rank: 111, price: 130, sizes: ['S','M','L','XL'], stock: { S: 2, M: 5, L: 5, XL: 2 }, palette: ['#7a5030','#3a2a1a','#cc0033'], glyph: 'RLP', drop: 'SS26', materials: 'Nylon léger · doudoune Ralph budget', cut: 'Regular', made: 'China', image: 'uploads/batch28/ralph-puffer/c01.jpg' },
 
   // Pants (2)
   { id: 'p04', name: 'Jeans Corteiz Noir', category: 'pants', subcategory: 'trousers', rank: 112, price: 65, sizes: ['28','30','32','34','36'], stock: { '28': 2, '30': 5, '32': 6, '34': 4, '36': 2 }, palette: ['#1a1a1a','#2a2a2a','#cc0033'], glyph: 'CTZ', drop: 'SS26', materials: 'Denim brut · logo Alcatraz brodé', cut: 'Relaxed', made: 'UK', image: 'uploads/batch28/corteiz/c01.jpg' },
@@ -403,8 +403,8 @@ window.PRODUCTS = [
   },
 
   // Shorts (6)
-  { id: 'sh03', name: 'Short de bain Prada', category: 'shorts', subcategory: 'sport', rank: 114, price: 60, sizes: ['S','M','L','XL'], stock: { S: 3, M: 6, L: 5, XL: 2 }, palette: ['#0a0a0a','#1a1a1a','#f4f1ea'], glyph: 'PRA', drop: 'SS26', materials: 'Nylon technique · triangle Prada brodé', cut: 'Standard', made: 'Italy' },
-  { id: 'sh04', name: 'Short de bain Burberry', category: 'shorts', subcategory: 'sport', rank: 115, price: 60, sizes: ['S','M','L','XL'], stock: { S: 3, M: 6, L: 5, XL: 2 }, palette: ['#a07050','#f4e0c0','#1a1a1a'], glyph: 'BUR', drop: 'SS26', materials: 'Nylon · motif Vintage Check Burberry', cut: 'Standard', made: 'Italy' },
+  { id: 'sh03', name: 'Short de bain Prada Re-Nylon', category: 'shorts', subcategory: 'sport', rank: 114, price: 60, sizes: ['S','M','L','XL'], stock: { S: 3, M: 6, L: 5, XL: 2 }, palette: ['#0a0a0a','#1a1a1a','#f4f1ea'], glyph: 'PRA', drop: 'SS26', materials: 'Nylon Re-Nylon · triangle Prada brodé', cut: 'Standard', made: 'Italy', image: 'uploads/batch28/prada-swim/c01.jpg' },
+  { id: 'sh04', name: 'Short de bain Burberry Vintage Check', category: 'shorts', subcategory: 'sport', rank: 115, price: 60, sizes: ['S','M','L','XL'], stock: { S: 3, M: 6, L: 5, XL: 2 }, palette: ['#a07050','#f4e0c0','#1a1a1a'], glyph: 'BUR', drop: 'SS26', materials: 'Nylon · motif Vintage Check Burberry', cut: 'Standard', made: 'Italy', image: 'uploads/batch28/burberry-swim/c01.jpg' },
   { id: 'sh05', name: 'Short de foot vintage', category: 'shorts', subcategory: 'sport', rank: 116, price: 25, sizes: ['S','M','L','XL'], stock: { S: 4, M: 8, L: 7, XL: 3 }, palette: ['#0a3a78','#cc0033','#f4f1ea'], glyph: 'FUT', drop: 'SS26', materials: 'Polyester recyclé · réplique pro', cut: 'Standard', made: 'Thailand' },
   { id: 'sh06', name: 'Short en jean coupe brute', category: 'shorts', subcategory: 'casual', rank: 117, price: 45, sizes: ['28','30','32','34','36'], stock: { '28': 2, '30': 4, '32': 5, '34': 3, '36': 1 }, palette: ['#2a4a78','#6a8aba','#1a1a1a'], glyph: 'JNS', drop: 'SS26', materials: 'Denim · ourlet déchiré', cut: 'Relaxed', made: 'China' },
   { id: 'sh07', name: 'Short Moncler', category: 'shorts', subcategory: 'casual', rank: 118, price: 75, sizes: ['S','M','L','XL'], stock: { S: 2, M: 5, L: 4, XL: 2 }, palette: ['#1a1a1a','#2a2a2a','#cc0033'], glyph: 'MNC', drop: 'SS26', materials: 'Nylon technique · patch tricolore Moncler', cut: 'Standard', made: 'Italy' },
@@ -450,10 +450,10 @@ window.PRODUCTS = [
   },
 
   // Accessoires (4)
-  { id: 'a04', name: 'Porte-monnaie Goyard', category: 'access', subcategory: 'bags', rank: 124, price: 95, sizes: ['OS'], stock: { OS: 6 }, palette: ['#0a0a0a','#5a4a3a','#f4f1ea'], glyph: 'GYR', drop: 'SS26', materials: 'Toile Goyardine chevron · cuir intérieur', cut: 'Wallet', made: 'France' },
+  { id: 'a04', name: 'Porte-monnaie Goyard Richelieu', category: 'access', subcategory: 'bags', rank: 124, price: 95, sizes: ['OS'], stock: { OS: 6 }, palette: ['#1a1a1a','#5a4a3a','#f4f1ea'], glyph: 'GYR', drop: 'SS26', materials: 'Toile Goyardine chevron · cuir intérieur', cut: 'Wallet', made: 'France', image: 'uploads/batch28/goyard-wallet/c01.jpg' },
   { id: 'c03', name: 'Casquette plate streetwear', category: 'caps', subcategory: 'caps', rank: 125, price: 35, sizes: ['OS'], stock: { OS: 10 }, palette: ['#1a1a1a','#2a2a2a','#cc0033'], glyph: 'CAP', drop: 'SS26', materials: 'Coton twill · visière plate ajustable', cut: 'Snapback', made: 'China' },
-  { id: 'c04', name: 'Casquette Gucci 1:1', category: 'caps', subcategory: 'caps', rank: 126, price: 55, sizes: ['OS'], stock: { OS: 8 }, palette: ['#1a1a1a','#7a4a30','#c89a30'], glyph: 'GUC', drop: 'SS26', materials: 'Toile GG Supreme · sangle ajustable', cut: 'Baseball', made: 'Italy' },
-  { id: 'a05', name: 'Sacoche Goyard messenger', category: 'access', subcategory: 'bags', rank: 127, price: 130, sizes: ['OS'], stock: { OS: 5 }, palette: ['#1a1a1a','#5a4a3a','#f4f1ea'], glyph: 'GYR', drop: 'SS26', materials: 'Toile Goyardine chevron · bandoulière ajustable', cut: 'Messenger', made: 'France' },
+  { id: 'c04', name: 'Casquette Gucci Logo Band', category: 'caps', subcategory: 'caps', rank: 126, price: 55, sizes: ['OS'], stock: { OS: 8 }, palette: ['#1a1a1a','#f4f1ea','#c89a30'], glyph: 'GUC', drop: 'SS26', materials: 'Coton · bandeau logo Gucci terrycloth', cut: 'Baseball', made: 'Italy', image: 'uploads/batch28/gucci-cap/c01.jpg' },
+  { id: 'a05', name: 'Sacoche Goyard Citadin Messenger', category: 'access', subcategory: 'bags', rank: 127, price: 130, sizes: ['OS'], stock: { OS: 5 }, palette: ['#2a3a5e','#5a4a3a','#f4f1ea'], glyph: 'GYR', drop: 'SS26', materials: 'Toile Goyardine chevron · bandoulière ajustable', cut: 'Messenger', made: 'France', image: 'uploads/batch28/goyard-sac/c01.jpg' },
 ];
 
 // Top-level nav categories (Nike-style) — each can include sub-categories shown in a mega-menu.
