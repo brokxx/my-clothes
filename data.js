@@ -466,7 +466,7 @@ window.NAV_CATS = [
       { id: 'court',      label: 'Court' },
       { id: 'claquettes', label: 'Claquettes' },
     ],
-    feature: 's04',
+    feature: 's03',
   },
   {
     id: 'hoodies', label: 'Sweats & Hoodies',
