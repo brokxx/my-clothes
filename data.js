@@ -393,7 +393,7 @@ window.PRODUCTS = [
   { id: 'o06', name: 'Doudoune Ralph Lauren Polo', category: 'outerwear', subcategory: 'coats', rank: 111, price: 130, sizes: ['S','M','L','XL'], stock: { S: 2, M: 5, L: 5, XL: 2 }, palette: ['#7a5030','#3a2a1a','#cc0033'], glyph: 'RLP', drop: 'SS26', materials: 'Nylon léger · doudoune Ralph budget', cut: 'Regular', made: 'China', image: 'uploads/batch28/ralph-puffer/c01.jpg' },
 
   // Pants (2)
-  { id: 'p04', name: 'Jeans Corteiz Noir', category: 'pants', subcategory: 'trousers', rank: 112, price: 65, sizes: ['28','30','32','34','36'], stock: { '28': 2, '30': 5, '32': 6, '34': 4, '36': 2 }, palette: ['#1a1a1a','#2a2a2a','#cc0033'], glyph: 'CTZ', drop: 'SS26', materials: 'Denim brut · logo Alcatraz brodé', cut: 'Relaxed', made: 'UK', image: 'uploads/batch28/corteiz/c01.jpg' },
+  { id: 'p04', name: 'Jeans Corteiz Noir', category: 'pants', subcategory: 'trousers', rank: 112, price: 65, sizes: ['28','30','32','34','36'], stock: { '28': 2, '30': 5, '32': 6, '34': 4, '36': 2 }, palette: ['#1a1a1a','#2a2a2a','#cc0033'], glyph: 'CTZ', drop: 'SS26', materials: 'Denim brut · logo Alcatraz brodé', cut: 'Relaxed', made: 'UK', image: 'uploads/batch28/corteiz/c01.jpg?v=2' },
   { id: 'p05', name: 'Jogging Balenciaga 1:1', category: 'pants', subcategory: 'sweatpants', rank: 113, price: 95, sizes: ['S','M','L','XL'], stock: { S: 2, M: 5, L: 5, XL: 2 }, palette: ['#1a1a1a','#787878','#f4f1ea'], glyph: 'BAL', drop: 'SS26', materials: 'Coton molletonné · coupe baggy Balenciaga', cut: 'Baggy', made: 'Italy', image: 'uploads/batch28/balenciaga-jog/c01.jpg',
     colors: [
       { id: 'blk', label: 'Noir',     hex: '#1a1a1a', image: 'uploads/batch28/balenciaga-jog/c01.jpg' },
@@ -417,9 +417,9 @@ window.PRODUCTS = [
   },
 
   // Chaussures (4)
-  { id: 's04', name: 'Nike Air Force 1 Low', category: 'sneakers', subcategory: 'court', rank: 120, price: 95, sizes: ['39','40','41','42','43','44','45','46'], stock: { '39': 1, '40': 4, '41': 6, '42': 8, '43': 7, '44': 5, '45': 3, '46': 2 }, palette: ['#f4f1ea','#1a1a1a','#cc0033'], glyph: 'AF1', drop: 'SS26', materials: 'Cuir lisse · semelle Air encapsulée', cut: 'Low-top', made: 'Vietnam', image: 'uploads/batch28/af1/c01.jpg',
+  { id: 's04', name: 'Nike Air Force 1 Low', category: 'sneakers', subcategory: 'court', rank: 120, price: 95, sizes: ['39','40','41','42','43','44','45','46'], stock: { '39': 1, '40': 4, '41': 6, '42': 8, '43': 7, '44': 5, '45': 3, '46': 2 }, palette: ['#f4f1ea','#1a1a1a','#cc0033'], glyph: 'AF1', drop: 'SS26', materials: 'Cuir lisse · semelle Air encapsulée', cut: 'Low-top', made: 'Vietnam', image: 'uploads/batch28/af1/c01.jpg?v=2',
     colors: [
-      { id: 'wht', label: 'Triple White',         hex: '#f4f1ea', image: 'uploads/batch28/af1/c01.jpg' },
+      { id: 'wht', label: 'Triple White',         hex: '#f4f1ea', image: 'uploads/batch28/af1/c01.jpg?v=2' },
       { id: 'nav', label: 'Mystic Navy',          hex: '#1a2a4a', image: 'uploads/batch28/af1/c02.jpg' },
       { id: 'red', label: 'Patent Dark Team Red', hex: '#a02030', image: 'uploads/batch28/af1/c03.jpg' },
       { id: 'gld', label: 'Patent Topaz Gold',    hex: '#c89a30', image: 'uploads/batch28/af1/c04.jpg' },
