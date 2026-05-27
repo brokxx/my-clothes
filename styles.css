@@ -519,7 +519,7 @@ body { padding-top: 68px; } /* reserve space for fixed nav */
 }
 .product-card {
   display: flex; flex-direction: column; gap: 12px;
-  position: relative; cursor: none;
+  position: relative; cursor: pointer;
 }
 .product-card .pmedia {
   position: relative; aspect-ratio: 4/5; overflow: hidden;
@@ -648,7 +648,7 @@ body { padding-top: 68px; } /* reserve space for fixed nav */
   position: relative; aspect-ratio: 1; overflow: hidden;
   border: 1px solid var(--line); background: var(--card);
   transition: border-color 180ms, transform 180ms var(--ease);
-  padding: 0; cursor: none;
+  padding: 0; cursor: pointer;
 }
 .color-swatch:hover { border-color: var(--fg); transform: translateY(-1px); }
 .color-swatch[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
