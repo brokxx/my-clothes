@@ -492,7 +492,7 @@ function Ticker({ items }) {
 }
 
 // ---------- Footer ----------
-function Footer({ navigate }) {
+function Footer({ navigate, openCategory }) {
   return (
     <footer>
       <div className="fcol">
@@ -502,17 +502,31 @@ function Footer({ navigate }) {
       <div className="fcol">
         <h4>Boutique</h4>
         <button onClick={() => navigate('catalogue')}>Tout</button>
-        <button onClick={() => navigate('catalogue')}>Nouveautés</button>
-        <button onClick={() => navigate('catalogue')}>T-shirts</button>
-        <button onClick={() => navigate('catalogue')}>Sweats</button>
-        <button onClick={() => navigate('catalogue')}>Outerwear</button>
+        <button onClick={() => {
+          const scrollToNouveautes = () => {
+            const el = document.getElementById('nouveautes');
+            if (el) {
+              const y = el.getBoundingClientRect().top + window.scrollY - 80;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+          };
+          if (window.location.hash || document.getElementById('nouveautes')) {
+            // already on home
+            if (document.getElementById('nouveautes')) {
+              scrollToNouveautes();
+              return;
+            }
+          }
+          navigate('home');
+          setTimeout(scrollToNouveautes, 320);
+        }}>Nouveautés</button>
+        <button onClick={() => openCategory('sneakers')}>Chaussures</button>
+        <button onClick={() => openCategory('tees', 'maillots-foot')}>Maillots de foot</button>
       </div>
       <div className="fcol">
         <h4>Maison</h4>
-        <a href="#">À propos</a>
-        <a href="#">Atelier</a>
-        <a href="#">Journal</a>
-        <a href="#">Points de vente</a>
+        <button onClick={() => navigate('about')}>À propos</button>
+        <button onClick={() => navigate('stores')}>Points de vente</button>
       </div>
       <div className="fcol">
         <h4>Aide</h4>

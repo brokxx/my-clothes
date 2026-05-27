@@ -218,7 +218,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
       </section>
 
       {/* ---------- NEW IN ---------- */}
-      <section className="section">
+      <section className="section" id="nouveautes">
         <div className="section-head">
           <h2>Nouveautés</h2>
           <button className="btn btn-ghost" onClick={() => navigate('catalogue')}>Catalogue complet →</button>
@@ -674,4 +674,39 @@ function ReturnsScreen() {
   );
 }
 
-Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen, ReturnsScreen });
+function StoresScreen() {
+  return (
+    <div className="screen contact-screen">
+      <section className="contact-hero">
+        <div className="eyebrow">Atelier 003 — Points de vente</div>
+        <h1 className="serif">
+          Uniquement <em>en ligne.</em>
+        </h1>
+        <p className="contact-lede">
+          Pour l'instant, My Clothes n'est disponible qu'en vente en ligne. Aucun point de vente physique n'est ouvert au public. Toutes les pièces sont expédiées depuis l'atelier MyClothes.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+function AboutScreen() {
+  return (
+    <div className="screen contact-screen">
+      <section className="contact-hero">
+        <div className="eyebrow">Atelier 003 — À propos</div>
+        <h1 className="serif">
+          My Clothes, <em>depuis 2026.</em>
+        </h1>
+        <p className="contact-lede">
+          My Clothes a été créée en 2026 avec une idée simple : connecter directement les usines aux personnes qui portent les vêtements. Pas d'intermédiaires, pas de circuits opaques.
+        </p>
+        <p className="contact-lede">
+          Notre but est de faciliter l'achat. Plus besoin de passer des heures à chercher la bonne pièce, à comparer les sites, ou à se déplacer de boutique en boutique. Tout est ici, au même endroit.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen, ReturnsScreen, StoresScreen, AboutScreen });
