@@ -389,7 +389,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
           <span style={{ fontSize: 9 }}>{panelOpen ? '▲' : '▼'}</span>
         </button>
         <label className="filter-search">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+          <svg viewBox="2 2 20 20" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true" style={{ flexShrink: 0 }}>
             <circle cx="11" cy="11" r="7" />
             <path d="M20 20l-3.5-3.5" />
           </svg>

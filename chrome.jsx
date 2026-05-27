@@ -245,30 +245,7 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
   const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef(null);
 
-  // Show/hide header on scroll direction
-  useEffect(() => {
-    let lastY = window.scrollY;
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const delta = y - lastY;
-        if (y < 60) {
-          setNavHidden(false);
-        } else if (delta > 6) {
-          setNavHidden(true);
-          setOpenCat(null);
-        } else if (delta < -6) {
-          setNavHidden(false);
-        }
-        lastY = y;
-        raf = 0;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  // Header reste toujours visible (toujours en haut)
 
   const onEnter = (id) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
