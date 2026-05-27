@@ -279,6 +279,26 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   const [priceBand, setPriceBand] = useStateS('all');
   const [panelOpen, setPanelOpen] = useStateS(false);
   const [query, setQuery] = useStateS('');
+  const [filtersHidden, setFiltersHidden] = useStateS(false);
+
+  useEffectS(() => {
+    let lastY = window.scrollY;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY;
+        if (y < 120) setFiltersHidden(false);
+        else if (delta > 6) setFiltersHidden(true);
+        else if (delta < -6) setFiltersHidden(false);
+        lastY = y;
+        raf = 0;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   // Incremental rendering: only N first products mounted; click "Voir plus"
   // to reveal the next batch. Resets to PAGE_SIZE whenever filters change so
   // mobile never has 70+ ProductCards in the DOM at once.
@@ -379,7 +399,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
         </div>
       </section>
 
-      <div className="filters">
+      <div className={"filters" + (filtersHidden ? " filters--hidden" : "")}>
         <button className="filter-btn" data-active={panelOpen} onClick={() => setPanelOpen(!panelOpen)}>
           <span>Filtres</span>
           {activeFilters > 0 && <span className="badge">{activeFilters}</span>}
