@@ -628,11 +628,10 @@ body { padding-top: 68px; } /* reserve space for fixed nav */
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 0; min-height: calc(100vh - 60px);
 }
-.pdp-gallery { display: flex; flex-direction: column; position: sticky; top: 80px; align-self: start; max-height: calc(100vh - 100px); overflow: hidden; }
-.pdp-img { position: relative; aspect-ratio: 1/1; max-height: calc(100vh - 100px); background: var(--card); border-bottom: 1px solid var(--line); }
+.pdp-gallery { display: flex; flex-direction: column; }
+.pdp-img { position: relative; aspect-ratio: 1/1; background: var(--card); border-bottom: 1px solid var(--line); }
 .pdp-img:last-child { border-bottom: 0; }
 .pdp-info {
-  position: sticky; top: 100px; align-self: start;
   padding: 48px 40px;
   display: flex; flex-direction: column; gap: 24px;
   border-left: 1px solid var(--line);

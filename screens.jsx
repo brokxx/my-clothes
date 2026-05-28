@@ -586,8 +586,6 @@ function ProductScreen({ productId, openProduct, addToCart }) {
           </dl>
 
           <div className="muted" style={{ fontSize: 11, lineHeight: 1.6, fontFamily: 'var(--mono)', letterSpacing: '.04em', marginTop: 16 }}>
-            Livraison offerte dès €250.<br/>
-            Expédition sous 5 jours ouvrés.<br/>
             Aucun retour ni échange — choisissez bien votre taille.
           </div>
         </aside>
