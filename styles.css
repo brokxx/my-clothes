@@ -774,19 +774,6 @@ footer .fmeta { font-family: var(--mono); font-size: 10px; letter-spacing: .16em
   footer .flogo { font-size: 44px; }
 }
 
-/* ---------- Audio toggle pulse ---------- */
-.audio-toggle { display: inline-flex; align-items: center; gap: 8px; }
-.audio-toggle .eq { display: inline-flex; gap: 2px; align-items: flex-end; height: 12px; }
-.audio-toggle .eq span {
-  width: 2px; background: currentColor; height: 6px;
-  animation: eq 1.2s ease-in-out infinite;
-}
-.audio-toggle .eq span:nth-child(2) { animation-delay: .15s; height: 10px; }
-.audio-toggle .eq span:nth-child(3) { animation-delay: .3s;  height: 5px; }
-.audio-toggle .eq span:nth-child(4) { animation-delay: .45s; height: 8px; }
-.audio-toggle[data-on="false"] .eq span { animation: none; height: 4px; opacity: .4; }
-@keyframes eq { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.2); } }
-
 /* ---------- Distort hover ---------- */
 .distort-hover { transition: filter 400ms; }
 .distort-hover:hover { filter: url(#distort-strong); }

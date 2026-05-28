@@ -1,4 +1,4 @@
-// MY CLOTHES — shared chrome: header, custom cursor, audio engine,
+// MY CLOTHES — shared chrome: header, custom cursor,
 // placeholder media, page transitions, ticker, footer.
 
 const { useState, useEffect, useRef, useCallback } = React;
@@ -145,100 +145,8 @@ function Cursor() {
   );
 }
 
-// ---------- Audio engine (ambient drone + click ticks) ----------
-function useAudio(initialOn) {
-  const [on, setOn] = useState(initialOn);
-  const ctxRef = useRef(null);
-  const droneRef = useRef(null);
-
-  const ensureCtx = useCallback(() => {
-    if (!ctxRef.current) {
-      try {
-        ctxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      } catch {}
-    }
-    return ctxRef.current;
-  }, []);
-
-  const startDrone = useCallback(() => {
-    const ctx = ensureCtx();
-    if (!ctx) return;
-    if (droneRef.current) return;
-    if (ctx.state === 'suspended') ctx.resume();
-
-    const master = ctx.createGain();
-    master.gain.value = 0;
-    master.gain.linearRampToValueAtTime(0.04, ctx.currentTime + 1.6);
-    master.connect(ctx.destination);
-
-    const lp = ctx.createBiquadFilter();
-    lp.type = 'lowpass';
-    lp.frequency.value = 600;
-    lp.Q.value = 1.2;
-    lp.connect(master);
-
-    const o1 = ctx.createOscillator(); o1.type = 'sine'; o1.frequency.value = 55;
-    const o2 = ctx.createOscillator(); o2.type = 'sawtooth'; o2.frequency.value = 82.5;
-    const o3 = ctx.createOscillator(); o3.type = 'sine'; o3.frequency.value = 110.3;
-    const og = ctx.createGain(); og.gain.value = 0.18;
-    o2.connect(og); og.connect(lp);
-    o1.connect(lp); o3.connect(lp);
-
-    // slow LFO on filter
-    const lfo = ctx.createOscillator(); lfo.frequency.value = 0.08;
-    const lfoGain = ctx.createGain(); lfoGain.gain.value = 280;
-    lfo.connect(lfoGain); lfoGain.connect(lp.frequency);
-
-    o1.start(); o2.start(); o3.start(); lfo.start();
-    droneRef.current = { master, oscs: [o1, o2, o3, lfo], ctx };
-  }, [ensureCtx]);
-
-  const stopDrone = useCallback(() => {
-    const d = droneRef.current;
-    if (!d) return;
-    const t = d.ctx.currentTime;
-    d.master.gain.cancelScheduledValues(t);
-    d.master.gain.linearRampToValueAtTime(0, t + 0.6);
-    setTimeout(() => {
-      d.oscs.forEach(o => { try { o.stop(); } catch {} });
-      droneRef.current = null;
-    }, 700);
-  }, []);
-
-  const tick = useCallback((freq = 1800, duration = 0.04, gainV = 0.06) => {
-    if (!on) return;
-    const ctx = ensureCtx();
-    if (!ctx) return;
-    if (ctx.state === 'suspended') ctx.resume();
-    const t = ctx.currentTime;
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'square'; o.frequency.value = freq;
-    g.gain.value = 0; g.gain.linearRampToValueAtTime(gainV, t + 0.005);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + duration);
-    o.connect(g); g.connect(ctx.destination);
-    o.start(t); o.stop(t + duration + 0.02);
-  }, [on, ensureCtx]);
-
-  useEffect(() => {
-    if (on) startDrone(); else stopDrone();
-  }, [on, startDrone, stopDrone]);
-
-  return { on, setOn, tick };
-}
-
-// ---------- Audio toggle UI ----------
-function AudioToggle({ on, onToggle }) {
-  return (
-    <button className="audio-toggle" data-on={on} onClick={onToggle} aria-label="Basculer le son">
-      <span className="eq"><span/><span/><span/><span/></span>
-      <span>{on ? 'son activé' : 'son coupé'}</span>
-    </button>
-  );
-}
-
 // ---------- Mega-nav header (Nike-style) ----------
-function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, onToggleTheme, audio }) {
+function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, onToggleTheme }) {
   const [openCat, setOpenCat] = useState(null); // id of the open mega-menu
   const [mobileOpen, setMobileOpen] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
@@ -286,7 +194,6 @@ function Header({ screen, navigate, openCategory, cartCount, onOpenCart, theme, 
 
           <div className="nav-right">
             <button onClick={onToggleTheme} aria-label="Basculer le thème" title="Basculer le thème">{theme === 'dark' ? '◐' : '◑'}</button>
-            <AudioToggle on={audio.on} onToggle={() => audio.setOn(!audio.on)} />
             <button onClick={onOpenCart} aria-label="Ouvrir le panier">
               Panier {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </button>
@@ -474,7 +381,7 @@ function Footer({ navigate, openCategory }) {
     <footer>
       <div className="fcol">
         <div className="flogo">My<br/><i>Clothes</i></div>
-        <div className="fmeta">SS26 · Édition 003<br/>Atelier 003</div>
+        <div className="fmeta">SS26 · Édition 001<br/>Atelier 001</div>
       </div>
       <div className="fcol">
         <h4>Boutique</h4>
@@ -541,5 +448,5 @@ function Toast({ message, product, onDone }) {
 // expose
 Object.assign(window, {
   Cursor, Header, Footer, Ticker, Toast,
-  ProductMedia, SvgDefs, useAudio, AudioToggle,
+  ProductMedia, SvgDefs,
 });

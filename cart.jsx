@@ -51,7 +51,7 @@ function CartDrawer({ open, onClose, cart, updateQty, removeLine, onCheckout }) 
             <div className="cart-empty">
               <div className="big">vide.</div>
               <p>Rien dans le panier pour le moment.</p>
-              <p className="muted" style={{ marginTop: 4 }}>Le Drop 003 est en ligne — commencez par là.</p>
+              <p className="muted" style={{ marginTop: 4 }}>Le Drop 001 est en ligne — commencez par là.</p>
             </div>
           ) : (
             lines.map(({ line, product }, i) => (
@@ -127,7 +127,7 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
           </h1>
           <p style={{ marginTop: 24, color: 'var(--muted)', lineHeight: 1.7 }}>
             Une confirmation a été envoyée à <strong style={{ color: 'var(--fg)' }}>{form.email || 'votre email'}</strong>.<br/>
-            Drop 003 expédié le 14 mars. Le suivi vous parviendra par e-mail.
+            Drop 001 expédié le 14 mars. Le suivi vous parviendra par e-mail.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 40, flexWrap: 'wrap' }}>
             <button className="btn" onClick={() => { clearCart(); navigate('home'); }}>Retour à l'accueil</button>
@@ -145,7 +145,7 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
     <div className="screen">
       <div className="checkout">
         <div className="checkout-form">
-          <div className="eyebrow">Commande · N° 003</div>
+          <div className="eyebrow">Commande · N° 001</div>
           <h1>{step === 0 ? <span>Vos <em>coordonnées</em>.</span> : step === 1 ? <span>Adresse de <em>livraison.</em></span> : <span>Paiement par <em>carte.</em></span>}</h1>
 
           <div className="checkout-steps">
@@ -230,7 +230,7 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
 
         {/* Summary */}
         <aside className="checkout-summary">
-          <div className="eyebrow">Commande — N° 003 · {lines.length} pièce{lines.length !== 1 ? 's' : ''}</div>
+          <div className="eyebrow">Commande — N° 001 · {lines.length} pièce{lines.length !== 1 ? 's' : ''}</div>
           <div className="spacer-md" />
           <div className="summary-list">
             {lines.map(({ line, product }, i) => (

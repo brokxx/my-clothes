@@ -205,7 +205,6 @@ function App() {
     });
     const p = window.PRODUCTS.find(x => x.id === entry.productId);
     setToast({ message: 'Ajouté au panier', product: p });
-    audio.tick(2200, 0.05, 0.07);
     setTimeout(() => setCartOpen(true), 80);
   }, []);
 
@@ -226,12 +225,9 @@ function App() {
   }, [tweaks, setTweak]);
   const theme = luminance(tweaks.palette && tweaks.palette[0] ? tweaks.palette[0] : '#0a0a0a') < 0.4 ? 'dark' : 'light';
 
-  // audio
-  const audio = useAudio(false);
-
   // render screen
   let body;
-  if (screen === 'home')        body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory} audio={audio}/>;
+  if (screen === 'home')        body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory}/>;
   else if (screen === 'catalogue') body = <CatalogueScreen openProduct={openProduct} initialCategory={catFilter.category} initialSubcategory={catFilter.subcategory} />;
   else if (screen === 'product' && productId) body = <ProductScreen productId={productId} openProduct={openProduct} addToCart={addToCart} />;
   else if (screen === 'checkout')  body = <CheckoutScreen cart={cart} navigate={navigate} clearCart={clearCart} />;
@@ -240,7 +236,7 @@ function App() {
   else if (screen === 'stores')    body = <StoresScreen />;
   else if (screen === 'about')     body = <AboutScreen />;
   else if (screen === 'admin')     body = <AdminScreen navigate={navigate} />;
-  else body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory} audio={audio}/>;
+  else body = <HomeScreen navigate={navigate} openProduct={openProduct} openCategory={openCategory}/>;
 
   return (
     <React.Fragment>
@@ -255,7 +251,6 @@ function App() {
           onOpenCart={() => setCartOpen(true)}
           theme={theme}
           onToggleTheme={onToggleTheme}
-          audio={audio}
         />
       )}
 
