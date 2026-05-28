@@ -115,7 +115,7 @@ function TrendingRail({ trendingList, openProduct }) {
 // ============================================================
 //   HOME
 // ============================================================
-function HomeScreen({ navigate, openProduct, openCategory, audio }) {
+function HomeScreen({ navigate, openProduct, openCategory }) {
   // drop is ~6 days from now
   const dropTarget = useRefS(Date.now() + (6 * 24 * 3600 + 7 * 3600 + 41 * 60) * 1000).current;
   const cd = useCountdown(dropTarget);
@@ -158,7 +158,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
 
         <div className="hero-stack">
           <div className="eyebrow center-flex" style={{ justifyContent: 'space-between' }}>
-            <span>Drop 003 — Printemps/Été 26</span>
+            <span>Drop 001 — Printemps/Été 26</span>
             <span>Édition limitée</span>
           </div>
 
@@ -207,7 +207,7 @@ function HomeScreen({ navigate, openProduct, openCategory, audio }) {
           <ProductMedia product={window.PRODUCTS.find(p => p.id === 'o05')} showLabel={false}/>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>Pièce phare — N° 003</div>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>Pièce phare — N° 001</div>
           <h3>"Une <em>doudoune</em><br/>qui ne s'oublie <em>jamais.</em>"</h3>
           <p>La Doudoune Palm Angels × Moncler Maya combine le nylon brillant signature Moncler avec les codes streetwear de Palm Angels. Garnissage en plumes naturelles, finition main.</p>
           <p>Édition limitée, chaque pièce est numérotée et certifiée d'origine.</p>
@@ -369,7 +369,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
   return (
     <div className="screen">
       <section style={{ padding: '60px 28px 30px' }}>
-        <div className="eyebrow">Drop 003 — SS26</div>
+        <div className="eyebrow">Drop 001 — SS26</div>
         <h1 className="serif" style={{ fontSize: 'clamp(48px, 10vw, 140px)', lineHeight: .85, letterSpacing: '-0.04em', marginTop: 14 }}>
           {catLabel === 'Catalogue' ? (
             <>Le <em style={{ fontStyle: 'normal', fontFamily: 'var(--sans)', fontWeight: 300, textTransform: 'uppercase', fontSize: '.55em', letterSpacing: '.02em' }}>catalogue</em></>
@@ -580,7 +580,7 @@ function ProductScreen({ productId, openProduct, addToCart }) {
             <dt>Coupe</dt><dd>{product.cut}</dd>
             <dt>Matière</dt><dd>{product.materials.split(' · ')[0]}</dd>
             <dt>Origine</dt><dd>{product.made}</dd>
-            <dt>Drop</dt><dd>{product.drop} — N° 003</dd>
+            <dt>Drop</dt><dd>{product.drop} — N° 001</dd>
             <dt>Stock</dt><dd>{totalLeft} unités au total</dd>
             <dt>Édition</dt><dd>Numérotée</dd>
           </dl>
@@ -613,7 +613,7 @@ function ContactScreen() {
   return (
     <div className="screen contact-screen">
       <section className="contact-hero">
-        <div className="eyebrow">Atelier 003 — Service client</div>
+        <div className="eyebrow">Atelier 001 — Service client</div>
         <h1 className="serif">
           Restons <em>en contact.</em>
         </h1>
@@ -634,7 +634,7 @@ function ContactScreen() {
       <section className="contact-foot">
         <div>
           <div className="eyebrow">Atelier</div>
-          <p>Édition 003</p>
+          <p>Édition 001</p>
         </div>
         <div>
           <div className="eyebrow">Horaires</div>
@@ -678,7 +678,7 @@ function StoresScreen() {
   return (
     <div className="screen contact-screen">
       <section className="contact-hero">
-        <div className="eyebrow">Atelier 003 — Points de vente</div>
+        <div className="eyebrow">Atelier 001 — Points de vente</div>
         <h1 className="serif">
           Uniquement <em>en ligne.</em>
         </h1>
@@ -694,7 +694,7 @@ function AboutScreen() {
   return (
     <div className="screen contact-screen">
       <section className="contact-hero">
-        <div className="eyebrow">Atelier 003 — À propos</div>
+        <div className="eyebrow">Atelier 001 — À propos</div>
         <h1 className="serif">
           My Clothes, <em>depuis 2026.</em>
         </h1>
