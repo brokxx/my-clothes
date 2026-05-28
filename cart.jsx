@@ -34,7 +34,7 @@ function CartDrawer({ open, onClose, cart, updateQty, removeLine, onCheckout }) 
 
   const lines = cart.map(l => ({ line: l, product: window.PRODUCTS.find(p => p.id === l.productId) })).filter(x => x.product);
   const subtotal = lines.reduce((sum, { line, product }) => sum + product.price * line.qty, 0);
-  const shipping = subtotal === 0 ? 0 : (subtotal >= 250 ? 0 : 18);
+  const shipping = subtotal === 0 ? 0 : 18;
   const total = subtotal + shipping;
 
   return (
@@ -72,7 +72,7 @@ function CartDrawer({ open, onClose, cart, updateQty, removeLine, onCheckout }) 
               <span className="mono" style={{ fontSize: 13 }}>€{subtotal.toFixed(0)}</span>
             </div>
             <div className="cart-total">
-              <span className="label">Livraison {shipping === 0 && subtotal >= 250 && <em style={{ color: 'var(--accent)', fontStyle: 'normal' }}>· offerte</em>}</span>
+              <span className="label">Livraison</span>
               <span className="mono" style={{ fontSize: 13 }}>{shipping === 0 ? '—' : `€${shipping}`}</span>
             </div>
             <div className="hr" />
@@ -101,7 +101,7 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
 
   const lines = cart.map(l => ({ line: l, product: window.PRODUCTS.find(p => p.id === l.productId) })).filter(x => x.product);
   const subtotal = lines.reduce((sum, { line, product }) => sum + product.price * line.qty, 0);
-  const shipping = subtotal >= 250 ? 0 : (form.shipMethod === 'express' ? 32 : 18);
+  const shipping = form.shipMethod === 'express' ? 32 : 18;
   const total = subtotal + shipping;
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
@@ -127,14 +127,14 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
           </h1>
           <p style={{ marginTop: 24, color: 'var(--muted)', lineHeight: 1.7 }}>
             Une confirmation a été envoyée à <strong style={{ color: 'var(--fg)' }}>{form.email || 'votre email'}</strong>.<br/>
-            Drop 001 expédié le 14 mars. Le suivi vous parviendra par e-mail.
+            Le suivi vous parviendra par e-mail.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 40, flexWrap: 'wrap' }}>
             <button className="btn" onClick={() => { clearCart(); navigate('home'); }}>Retour à l'accueil</button>
             <button className="btn btn-ghost" onClick={() => { clearCart(); navigate('catalogue'); }}>Continuer les achats</button>
           </div>
           <div className="mono muted" style={{ fontSize: 10, letterSpacing: '.18em', textTransform: 'uppercase', marginTop: 80 }}>
-            Chaque pièce est finie à la main. Comptez 5 jours ouvrés avant expédition.
+            Chaque pièce est finie à la main.
           </div>
         </div>
       </div>
@@ -185,8 +185,8 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
               <h3>Choisir une méthode</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
-                  { id: 'standard', label: 'Standard', desc: '5–7 jours ouvrés', price: subtotal >= 250 ? 0 : 18 },
-                  { id: 'express',  label: 'Express',  desc: '2–3 jours ouvrés', price: 32 },
+                  { id: 'standard', label: 'Standard', price: 18 },
+                  { id: 'express',  label: 'Express',  price: 32 },
                 ].map(opt => (
                   <button key={opt.id} onClick={() => set('shipMethod', opt.id)} style={{
                     display: 'grid', gridTemplateColumns: '1fr auto', gap: 20, padding: '18px 20px',
@@ -196,9 +196,8 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
                   }}>
                     <div>
                       <div style={{ fontSize: 14, fontWeight: 500 }}>{opt.label}</div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--muted)', marginTop: 4 }}>{opt.desc}</div>
                     </div>
-                    <div className="mono" style={{ fontSize: 13 }}>{opt.price === 0 ? 'Offert' : `€${opt.price}`}</div>
+                    <div className="mono" style={{ fontSize: 13 }}>€{opt.price}</div>
                   </button>
                 ))}
               </div>
@@ -247,8 +246,8 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
           <div className="spacer-md" />
           <div className="cart-total"><span className="label">Sous-total</span><span className="mono" style={{ fontSize: 13 }}>€{subtotal.toFixed(0)}</span></div>
           <div className="cart-total" style={{ marginTop: 6 }}>
-            <span className="label">Livraison{shipping === 0 && subtotal >= 250 ? ' · offerte dès €250' : ''}</span>
-            <span className="mono" style={{ fontSize: 13 }}>{shipping === 0 ? '—' : `€${shipping}`}</span>
+            <span className="label">Livraison</span>
+            <span className="mono" style={{ fontSize: 13 }}>€{shipping}</span>
           </div>
           <div className="hr" style={{ margin: '16px 0' }}/>
           <div className="cart-total">
