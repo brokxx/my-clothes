@@ -1,0 +1,15 @@
+# Copier en `.dev.vars` (gitignoré) pour le dev local avec `wrangler pages dev`.
+# En production : définir ces valeurs comme secrets sur Cloudflare Pages.
+
+# Clé secrète Stripe (sk_test_... en dev, sk_live_... en prod)
+STRIPE_SECRET_KEY=sk_test_xxx
+
+# Secret de signature du webhook (whsec_...) fourni par Stripe à la création
+# de l'endpoint webhook.
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+
+# Mot de passe d'accès à l'admin (#admin)
+ADMIN_PASSWORD=brokx59000
+
+# Secret aléatoire pour signer les cookies de session admin (généré une fois)
+COOKIE_SECRET=changeme-random-string
