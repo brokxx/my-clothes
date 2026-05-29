@@ -9,7 +9,7 @@ pages_build_output_dir = "."
 #   npx wrangler kv namespace create ORDERS
 [[kv_namespaces]]
 binding = "ORDERS"
-id = "REMPLIR_APRES_CREATION"
+id = "5899b4b574d34aa8b5ca968ba03a9159"
 
 # Variables secrètes (NE PAS mettre ici) — à définir via le dashboard Cloudflare
 # Pages > Settings > Variables and Secrets, ou :
