@@ -1266,3 +1266,10 @@ html[data-touch="1"] .hero-bg { transform: scale(1.06) !important; }
 .adm-login-btn:disabled { opacity: .5; cursor: not-allowed; }
 .adm-login-back { margin-top: 10px; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); text-decoration: none; text-transform: uppercase; }
 .adm-login-back:hover { color: var(--fg); }
+
+.adm-banner {
+  padding: 8px 24px; font-family: var(--mono); font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; text-align: center;
+}
+.adm-banner-demo { background: #b07b00; color: #fff; }
+.adm-banner-live { background: #2a8849; color: #fff; }
