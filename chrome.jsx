@@ -416,7 +416,7 @@ function Footer({ navigate, openCategory }) {
         <h4>Aide</h4>
         <a href="#">Livraison</a>
         <button onClick={() => navigate('returns')}>Retours</button>
-        <a href="#">Guide des tailles</a>
+        <button onClick={() => navigate('sizeguide')}>Guide des tailles</button>
         <button onClick={() => navigate('contact')}>Contact</button>
       </div>
       <div className="fbottom">

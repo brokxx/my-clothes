@@ -478,7 +478,7 @@ function CatalogueScreen({ openProduct, initialCategory, initialSubcategory }) {
 // ============================================================
 //   PRODUCT DETAIL
 // ============================================================
-function ProductScreen({ productId, openProduct, addToCart }) {
+function ProductScreen({ productId, openProduct, addToCart, navigate }) {
   const product = window.PRODUCTS.find(p => p.id === productId);
   const [size, setSize] = useStateS(null);
   const [showSpecs, setShowSpecs] = useStateS(true);
@@ -554,7 +554,7 @@ function ProductScreen({ productId, openProduct, addToCart }) {
           <div>
             <div className="eyebrow" style={{ marginBottom: 10, display: 'flex', justifyContent: 'space-between' }}>
               <span>Choisir une taille</span>
-              <button className="muted" style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '.18em', textTransform: 'uppercase' }}>Guide des tailles ↗</button>
+              <button className="muted" onClick={() => navigate && navigate('sizeguide')} style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '.18em', textTransform: 'uppercase' }}>Guide des tailles ↗</button>
             </div>
             <div className="size-grid" style={{ gridTemplateColumns: `repeat(${Math.min(product.sizes.length, 6)}, 1fr)` }}>
               {product.sizes.map(s => (
@@ -707,4 +707,113 @@ function AboutScreen() {
   );
 }
 
-Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen, ReturnsScreen, StoresScreen, AboutScreen });
+// ============================================================
+//   SIZE GUIDE
+// ============================================================
+const SIZE_TABLES = [
+  {
+    id: 'tops',
+    title: 'Hauts',
+    note: 'T-shirts, sweats, hoodies, vestes et maillots de foot. Mesures du corps, à plat sans serrer. En cas de doute entre deux tailles, prenez la plus grande pour une coupe ample.',
+    cols: ['Taille', 'Tour de poitrine', 'Tour de taille'],
+    rows: [
+      ['S',   '88 – 96 cm',   '74 – 80 cm'],
+      ['M',   '96 – 104 cm',  '80 – 88 cm'],
+      ['L',   '104 – 112 cm', '88 – 96 cm'],
+      ['XL',  '112 – 120 cm', '96 – 104 cm'],
+      ['XXL', '120 – 128 cm', '104 – 112 cm'],
+    ],
+  },
+  {
+    id: 'bottoms',
+    title: 'Bas',
+    note: 'Pantalons, joggings, shorts et boxers. Mesurez le tour de taille au creux, au-dessus du nombril.',
+    cols: ['Taille', 'Tour de taille', 'Équivalent US (pouces)', 'Tour de hanches'],
+    rows: [
+      ['S',   '71 – 76 cm',   '28 – 30"', '88 – 94 cm'],
+      ['M',   '76 – 84 cm',   '30 – 33"', '94 – 100 cm'],
+      ['L',   '84 – 94 cm',   '33 – 37"', '100 – 108 cm'],
+      ['XL',  '94 – 104 cm',  '37 – 41"', '108 – 116 cm'],
+      ['2XL', '104 – 114 cm', '41 – 45"', '116 – 124 cm'],
+      ['3XL', '114 – 124 cm', '45 – 49"', '124 – 132 cm'],
+    ],
+  },
+  {
+    id: 'shoes',
+    title: 'Chaussures',
+    note: 'Pointures en EU. Le plus fiable reste la longueur du pied (CM) : mesurez votre pied du talon au gros orteil, le soir, et reportez-la dans la colonne CM. Nike taille plutôt petit (+0,5), adidas taille juste.',
+    cols: ['EU', 'US', 'UK', 'Longueur pied (CM)'],
+    rows: [
+      ['39',   '6.5',  '6',    '24.5 cm'],
+      ['40',   '7',    '6.5',  '25.0 cm'],
+      ['41',   '8',    '7',    '26.0 cm'],
+      ['42',   '8.5',  '8',    '26.5 cm'],
+      ['43',   '9.5',  '9',    '27.1 cm'],
+      ['44',   '10',   '9.5',  '27.9 cm'],
+      ['45',   '11',   '10',   '28.8 cm'],
+      ['46',   '12',   '11',   '29.4 cm'],
+    ],
+  },
+  {
+    id: 'caps',
+    title: 'Casquettes & bobs',
+    note: 'La majorité des casquettes sont à taille unique avec sangle réglable. Les bobs sont proposés en deux tailles selon le tour de tête.',
+    cols: ['Taille', 'Tour de tête'],
+    rows: [
+      ['Taille unique (réglable)', '54 – 60 cm'],
+      ['S / M',                    '54 – 57 cm'],
+      ['L / XL',                   '57 – 60 cm'],
+    ],
+  },
+];
+
+function SizeGuideScreen() {
+  return (
+    <div className="screen contact-screen size-guide">
+      <section className="contact-hero">
+        <div className="eyebrow">Aide — Guide des tailles</div>
+        <h1 className="serif">
+          Trouvez votre <em>taille.</em>
+        </h1>
+        <p className="contact-lede">
+          Aucun retour ni échange : prenez le temps de mesurer. Toutes les mesures sont indicatives et données en centimètres. En cas de doute, écrivez-nous sur Discord avant de commander.
+        </p>
+      </section>
+
+      {SIZE_TABLES.map(t => (
+        <section key={t.id} className="size-block">
+          <h2 className="serif size-block-title">{t.title}</h2>
+          <p className="size-block-note">{t.note}</p>
+          <div className="size-table-wrap">
+            <table className="size-table">
+              <thead>
+                <tr>{t.cols.map(c => <th key={c}>{c}</th>)}</tr>
+              </thead>
+              <tbody>
+                {t.rows.map((r, i) => (
+                  <tr key={i}>
+                    {r.map((cell, j) => (
+                      <td key={j} className={j === 0 ? 'size-table-lead' : ''}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
+
+      <section className="size-howto">
+        <div className="eyebrow">Comment se mesurer</div>
+        <ul className="size-howto-list">
+          <li><strong>Poitrine</strong> — mètre ruban à l'endroit le plus large, sous les aisselles, sans bomber le torse.</li>
+          <li><strong>Taille</strong> — au creux des hanches, au-dessus du nombril, sans serrer.</li>
+          <li><strong>Pied</strong> — debout sur une feuille, tracez du talon au plus long orteil, mesurez en cm.</li>
+          <li><strong>Tête</strong> — au-dessus des oreilles et des sourcils, là où repose la casquette.</li>
+        </ul>
+      </section>
+    </div>
+  );
+}
+
+Object.assign(window, { HomeScreen, CatalogueScreen, ProductScreen, ProductCard, ContactScreen, ReturnsScreen, StoresScreen, AboutScreen, SizeGuideScreen });
