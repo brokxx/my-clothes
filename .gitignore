@@ -20,3 +20,8 @@ npm-debug.log
 # Tests visuels temporaires
 *.test.png
 screenshots/
+
+# Cloudflare / secrets
+.dev.vars
+.wrangler/
+node_modules/

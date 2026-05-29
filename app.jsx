@@ -218,6 +218,24 @@ function App() {
 
   const cartCount = useMemoA(() => cart.reduce((s, l) => s + l.qty, 0), [cart]);
 
+  // ---- Retour de Stripe Checkout (?checkout=success|cancel) ----
+  useEffectA(() => {
+    const params = new URLSearchParams(window.location.search);
+    const result = params.get('checkout');
+    if (!result) return;
+    if (result === 'success') {
+      const order = params.get('order');
+      setCart([]);
+      try { localStorage.removeItem('mc-cart'); } catch (e) {}
+      setToast({ message: order ? `Commande ${order} confirmée` : 'Commande confirmée' });
+    } else if (result === 'cancel') {
+      setToast({ message: 'Paiement annulé' });
+    }
+    // nettoie l'URL pour éviter de retraiter au refresh
+    const clean = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, '', clean);
+  }, []);
+
   // theme toggle (swaps to bone palette as light)
   const onToggleTheme = useCallbackA(() => {
     const isDark = luminance(tweaks.palette && tweaks.palette[0] ? tweaks.palette[0] : '#0a0a0a') < 0.4;

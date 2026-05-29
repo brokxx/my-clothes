@@ -9,6 +9,22 @@ Tout assistant Claude qui ouvre une session sur ce projet doit suivre ces règle
 - **Lancer en local** : `python3 -m http.server 8765` dans la racine du repo → http://localhost:8765/
 - **UI 100% en français** : labels, boutons, placeholders, copy. Les noms de marques/clubs étrangers (Liverpool, PSG, Nike) restent dans leur langue.
 
+## Backend (Cloudflare Pages Functions + Stripe + KV)
+
+Le site reste statique, mais un backend serverless gère les paiements et les commandes réelles. Hébergement cible : **Cloudflare Pages** (GitHub Pages ne peut pas faire tourner de Functions).
+
+- `functions/api/checkout.js` — POST panier → valide les prix contre `functions/_catalog.js` (jamais le prix du client) → crée une session Stripe Checkout, renvoie l'URL.
+- `functions/api/webhook.js` — endpoint webhook Stripe, vérifie la signature HMAC, enregistre la commande payée dans KV (`paid:<id>`).
+- `functions/api/admin/{login,logout,session,orders}.js` — auth serveur par cookie signé (`functions/_auth.js`), `orders` protégé (401 sans session).
+- `functions/_catalog.js` — **auto-généré** : `node tools/gen-catalog.mjs` après chaque modif de prix/produits dans `data.js`.
+- Front : `cart.jsx` redirige vers Stripe (fallback démo si pas de backend), `admin.jsx` login serveur + vraies commandes (fallback SHA-256 + mocks), `app.jsx` gère le retour `?checkout=success`.
+
+**Secrets** (Cloudflare Pages > Settings > Variables, ou `wrangler pages secret put X --project-name my-clothes`) : `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `ADMIN_PASSWORD`, `COOKIE_SECRET`. En local : copier `.dev.vars.example` → `.dev.vars` puis `npx wrangler pages dev . --kv ORDERS`.
+
+**KV** : namespace `ORDERS` (créer via `npx wrangler kv namespace create ORDERS`, coller l'id dans `wrangler.toml`).
+
+Sans backend (hébergement statique GitHub Pages), tout dégrade proprement : checkout = confirmation de démo, admin = mot de passe client + commandes fictives.
+
 ## Routine de DÉBUT de session
 
 Dès qu'une nouvelle conversation démarre sur ce repo, **exécute automatiquement** ce qui suit avant de prendre les instructions de l'utilisateur :

@@ -40,8 +40,25 @@ function AdminLogin({ onSuccess }) {
   async function submit(e) {
     if (e) e.preventDefault();
     if (cooldown) return;
-    const h = await hashPwd(pwd);
-    if (h === ADMIN_PWD_HASH) {
+
+    // Auth serveur en priorité (pose un cookie de session signé, protège l'API
+    // des commandes). Fallback SHA-256 client si pas de backend (hébergement
+    // statique pur) : le prototype reste utilisable mais sans vraies données.
+    let ok = false;
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ password: pwd }),
+      });
+      if (res.status === 404) throw new Error('no-backend');
+      ok = res.ok;
+    } catch (netErr) {
+      const h = await hashPwd(pwd);
+      ok = (h === ADMIN_PWD_HASH);
+    }
+
+    if (ok) {
       sessionStorage.setItem('mc-admin-session', '1');
       onSuccess();
     } else {
@@ -507,19 +524,61 @@ function ExportTab({ orders, onRegenerate }) {
   );
 }
 
+// Normalise une commande venue de l'API (webhook Stripe) vers le shape attendu
+// par les onglets (date, shipping en euros, ts de tri).
+function normalizeOrder(o) {
+  const ts = o.paidAt || o.ts || Date.now();
+  return {
+    id: o.id,
+    ts,
+    date: new Date(ts).toISOString().slice(0, 10),
+    customer: o.customer || { name: '', email: '', city: '' },
+    items: (o.items || []).map(it => ({
+      productId: it.productId, name: it.name, size: it.size, qty: it.qty, price: it.price,
+    })),
+    subtotal: o.subtotal || 0,
+    shipping: typeof o.shippingCents === 'number' ? o.shippingCents / 100 : (o.shipping || 0),
+    total: o.total || 0,
+    status: o.status || 'paid',
+    paymentMethod: o.paymentMethod || 'card',
+  };
+}
+
 // ---------- AdminScreen ----------
 function AdminScreen({ navigate }) {
   const [authed, setAuthed] = useStateAd(() => sessionStorage.getItem('mc-admin-session') === '1');
   const [tab, setTab] = useStateAd('dashboard');
   const [orders, setOrders] = useStateAd(() => window.MOCK_ORDERS || []);
+  const [source, setSource] = useStateAd('demo'); // 'demo' | 'live'
+
+  // Au login, tente de charger les vraies commandes depuis l'API protégée.
+  // Si l'endpoint répond (backend présent) on bascule en mode "live", sinon on
+  // garde les données de démonstration.
+  useEffectAd(() => {
+    if (!authed) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/admin/orders', { credentials: 'same-origin' });
+        if (!res.ok) return; // 404 (pas de backend) ou 401 → on reste en démo
+        const data = await res.json().catch(() => ({}));
+        if (cancelled || !data || !Array.isArray(data.orders)) return;
+        setOrders(data.orders.map(normalizeOrder));
+        setSource('live');
+      } catch (e) { /* pas de backend → démo */ }
+    })();
+    return () => { cancelled = true; };
+  }, [authed]);
 
   function logout() {
     sessionStorage.removeItem('mc-admin-session');
+    fetch('/api/admin/logout', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
     setAuthed(false);
   }
   function regenerate() {
     const fresh = window.regenerateMockOrders();
     setOrders(fresh);
+    setSource('demo');
   }
 
   if (!authed) return <AdminLogin onSuccess={() => setAuthed(true)} />;
@@ -541,6 +600,12 @@ function AdminScreen({ navigate }) {
           <a className="adm-btn-ghost" href="#" onClick={(e) => { e.preventDefault(); window.location.hash = ''; navigate('home'); }}>← Site</a>
           <button className="adm-btn-ghost" onClick={logout}>Déconnexion</button>
         </div>
+      </div>
+
+      <div className={'adm-banner adm-banner-' + source}>
+        {source === 'live'
+          ? 'Données réelles — commandes Stripe en direct'
+          : 'Mode démonstration — commandes fictives (aucun paiement réel branché sur cet hébergement)'}
       </div>
 
       {tab === 'dashboard' && <DashboardTab orders={orders} />}

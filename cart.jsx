@@ -98,6 +98,8 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
     card: '', expiry: '', cvc: '',
     shipMethod: 'standard',
   });
+  const [paying, setPaying] = useStateC(false);
+  const [payError, setPayError] = useStateC('');
 
   const lines = cart.map(l => ({ line: l, product: window.PRODUCTS.find(p => p.id === l.productId) })).filter(x => x.product);
   const subtotal = lines.reduce((sum, { line, product }) => sum + product.price * line.qty, 0);
@@ -113,7 +115,39 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
   const next = () => {
     if (step === 0 && validDetails) setStep(1);
     else if (step === 1) setStep(2);
-    else if (step === 2 && validPay) setStep(3);
+  };
+
+  // Paiement réel via Stripe Checkout (backend Cloudflare). Si aucun backend
+  // n'est présent (hébergement statique pur), on retombe sur la confirmation
+  // de démonstration pour que le prototype reste navigable.
+  const payNow = async () => {
+    setPaying(true);
+    setPayError('');
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          items: cart.map(l => ({ productId: l.productId, size: l.size, qty: l.qty })),
+          shipMethod: form.shipMethod,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json().catch(() => ({}));
+        if (data && data.url) { window.location.href = data.url; return; }
+      }
+      if (res.status === 404) { setStep(3); return; } // pas de backend → démo
+      const d = await res.json().catch(() => ({}));
+      if (d && d.error === 'paiement_non_configure') {
+        setPayError("Le paiement en ligne n'est pas encore activé. Réessayez bientôt.");
+      } else {
+        setPayError("Le paiement a échoué. Merci de réessayer dans un instant.");
+      }
+      setPaying(false);
+    } catch (e) {
+      // réseau / pas de backend → confirmation de démonstration
+      setStep(3);
+    }
   };
 
   // confirmation
@@ -210,18 +244,23 @@ function CheckoutScreen({ cart, navigate, clearCart }) {
 
           {step === 2 && (
             <div>
-              <h3>Détails de la carte</h3>
-              <div className="field"><label>Numéro de carte</label><input value={form.card} onChange={e => set('card', e.target.value.replace(/[^0-9 ]/g, ''))} placeholder="4242 4242 4242 4242" maxLength={19} /></div>
-              <div className="field-row">
-                <div className="field"><label>Expiration</label><input value={form.expiry} onChange={e => set('expiry', e.target.value.replace(/[^0-9/]/g, ''))} placeholder="MM / AA" maxLength={7} /></div>
-                <div className="field"><label>CVC</label><input value={form.cvc} onChange={e => set('cvc', e.target.value.replace(/[^0-9]/g, ''))} placeholder="123" maxLength={4} /></div>
-              </div>
+              <h3>Paiement sécurisé</h3>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginTop: 6 }}>
+                Vous allez être redirigé vers la page de paiement sécurisée <strong style={{ color: 'var(--fg)' }}>Stripe</strong> pour régler votre commande par carte. Vos coordonnées bancaires ne transitent jamais par notre site.
+              </p>
               <div className="mono muted" style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', marginTop: 14 }}>
-                Chiffré · 256-bit · aucune carte n'est stockée
+                Paiement chiffré · Carte · Apple Pay · Google Pay
               </div>
+              {payError && (
+                <div className="mono" style={{ fontSize: 12, color: 'var(--accent)', marginTop: 14, letterSpacing: '.04em' }}>
+                  {payError}
+                </div>
+              )}
               <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
-                <button className="btn btn-ghost" onClick={() => setStep(1)}>← Retour</button>
-                <button className="btn btn-accent" onClick={next} disabled={!validPay} style={{ opacity: validPay ? 1 : 0.4 }}>Payer €{total} →</button>
+                <button className="btn btn-ghost" onClick={() => setStep(1)} disabled={paying}>← Retour</button>
+                <button className="btn btn-accent" onClick={payNow} disabled={paying} style={{ opacity: paying ? 0.5 : 1 }}>
+                  {paying ? 'Redirection…' : `Payer €${total} →`}
+                </button>
               </div>
             </div>
           )}

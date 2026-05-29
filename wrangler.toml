@@ -1,0 +1,19 @@
+# Configuration Cloudflare Pages — My Clothes
+# Site statique (racine) + Functions (dossier functions/) + KV pour les commandes.
+
+name = "my-clothes"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."
+
+# Namespace KV des commandes. L'id est rempli après :
+#   npx wrangler kv namespace create ORDERS
+[[kv_namespaces]]
+binding = "ORDERS"
+id = "REMPLIR_APRES_CREATION"
+
+# Variables secrètes (NE PAS mettre ici) — à définir via le dashboard Cloudflare
+# Pages > Settings > Variables and Secrets, ou :
+#   npx wrangler pages secret put STRIPE_SECRET_KEY --project-name my-clothes
+#   npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name my-clothes
+#   npx wrangler pages secret put ADMIN_PASSWORD --project-name my-clothes
+#   npx wrangler pages secret put COOKIE_SECRET --project-name my-clothes
